@@ -1,8 +1,0 @@
-from time import time
-import sys
-import os
-import multiprocessing as mp
-import hello
-
-
-rgeruoi
