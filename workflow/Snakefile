@@ -1,7 +1,18 @@
-from time import time
-import sys
-import os
-import multiprocessing as mp
-import hello
+# from time import time
+# import sys
+# import os
+# import multiprocessing as mp
+
+print("hello")
+
+include : "rules/pre_proced.smk"
+##pre procedure different selon la config que l'on va séléctionner
+
+rule all:
+    input :
+        "hhgurh",
 
 
+include : "rules/summary_results.smk"
+include : "rules/dating_proced.smk"
+include : "rules/plink_proced.smk"
