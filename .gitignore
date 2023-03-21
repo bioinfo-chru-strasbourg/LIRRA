@@ -50,3 +50,8 @@ coverage.xml
 
 # vscode
 .vscode/
+
+workflow/.snakemake/
+
+#ignore data patients
+config/snp_data.csv
