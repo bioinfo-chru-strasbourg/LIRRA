@@ -1,0 +1,53 @@
+description: snakemake configuration file, JSON schema recommandation
+
+type: object
+
+properties:
+
+  samples: 
+    type: string
+
+  ref :
+    type: string
+    properties:
+      species: 
+        type: string
+
+      data_type: 
+        type: string
+
+      build: 
+        type: string
+
+      contig_lenght: 
+        type: list
+
+  params:
+    type: object
+    properties:
+      location_variant: 
+        type: string
+
+      confidence_coefficient: 
+        type: float
+
+      variant_frequency: 
+        type: float
+
+      #Mode en cours de création qui va permettre de lancer un script qui cherchera a optimiser les para plink pour trouver le plus de ROH entre les patients, ce sera plus long par conséquent
+      optimisation_mode: 
+        type: boolean
+
+      ROH_detect_software: 
+        type: string
+
+      dating_software: 
+        type: string
+    required:
+      - location_variant
+      - confidence_coefficient
+      - optimisation_mode
+      - ROH_detect_software
+      - dating_software
+    
+

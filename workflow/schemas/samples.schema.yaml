@@ -1,0 +1,29 @@
+decription: an entry in the data file, JSON schema recommandation
+
+properties: 
+  Index:
+    type: integer
+    description: Index number of snp
+  
+  Name:
+    type: string
+    description: SNP name
+
+  Chr:
+    type: integer
+    description: Chromosome number
+
+  Position:
+    type: integer
+    description: Bp position 
+
+  haplotype_sampleX.Top Alleles:
+    type: string
+    description: Haplotype for each samples
+
+required:
+  - Index
+  - Name
+  - Chr
+  - Position
+  - haplotype_sampleX.Top Alleles
