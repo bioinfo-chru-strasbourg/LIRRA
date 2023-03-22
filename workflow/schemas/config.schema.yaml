@@ -1,3 +1,4 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
 description: snakemake configuration file, JSON schema recommandation
 
 type: object
@@ -7,8 +8,10 @@ properties:
   samples: 
     type: string
 
-  ref :
+  list_puce_fam: 
     type: string
+
+  ref :
     properties:
       species: 
         type: string
@@ -20,7 +23,7 @@ properties:
         type: string
 
       contig_lenght: 
-        type: list
+        type: array
 
   params:
     type: object
@@ -29,10 +32,10 @@ properties:
         type: string
 
       confidence_coefficient: 
-        type: float
+        type: number
 
       variant_frequency: 
-        type: float
+        type: number
 
       #Mode en cours de création qui va permettre de lancer un script qui cherchera a optimiser les para plink pour trouver le plus de ROH entre les patients, ce sera plus long par conséquent
       optimisation_mode: 

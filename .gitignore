@@ -55,3 +55,6 @@ workflow/.snakemake/
 
 #ignore data patients
 config/snp_data.csv
+config/list_puce_fam.fam
+config/snp_data_all.csv
+.snakemake/

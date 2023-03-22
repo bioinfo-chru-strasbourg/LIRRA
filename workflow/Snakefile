@@ -3,14 +3,14 @@
 # import os
 # import multiprocessing as mp
 
-# print("hello")
+print("hello")
 
 include : "rules/pre_proced.smk"
 ##pre procedure different selon la config que l'on va séléctionner
 
-rule all:
-    input :
-        "hhgurh",
+# rule all:
+#     input :
+#         "hhgurh",
 
 
 include : "rules/summary_results.smk"
