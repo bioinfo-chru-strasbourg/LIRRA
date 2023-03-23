@@ -5,14 +5,31 @@
 
 print("hello")
 
-include : "rules/pre_proced.smk"
-##pre procedure different selon la config que l'on va séléctionner
+include: "rules/pre_proced.smk"
+# print(os.getcwd())
 
-# rule all:
-#     input :
-#         "hhgurh",
+##pre procedure different selon la config que l'on va séléctionner
+# rule clean_data:
+#     input: "scripts/test.sh"
+#     # output:
+#     shell: "{input}"
+# rule clean_data:
+#     input: "scripts/test.sh"
+#     output: "scripts/test.txt"
+#     shell: "{input}"
+# rule clean_data:
+    # output:
+    #     "../results/Full_data_clean.csv",
+
+rule all:
+    input:
+        "../results/plink.map",
+        "../results/plink.lgen",
+        "../results/plink.fam"
+    # shell: 
+    #     "bash scripts/clean_data.sh"
 
 
 include : "rules/summary_results.smk"
 include : "rules/dating_proced.smk"
-include : "rules/plink_proced.smk"
+include: "rules/plink_proced.smk"
