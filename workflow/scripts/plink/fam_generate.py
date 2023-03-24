@@ -1,5 +1,6 @@
 import pandas as pd
 import argparse
+import os
 
 
 class fam_file:
@@ -37,7 +38,17 @@ class fam_file:
             }
         )
         final_fam.to_csv(self.output, sep="\t", header=None, index=None)
-        final_fam.to_csv("puce_for_lgen.fam", sep="\t", index=None)
+        final_fam.to_csv(self.path_lgen(), sep="\t", index=None)
+    
+    def path_lgen(self):
+        print(self.output)
+        path_lgen=str(self.output).split("/")
+        path_lgen=path_lgen[:len(path_lgen)-1]
+        path_lgen.append("puce_for_lgen.fam")
+        print("/".join(path_lgen))
+        return "/".join(path_lgen)
+
+        
 
 
 def main():
