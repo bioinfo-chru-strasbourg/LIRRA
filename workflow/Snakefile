@@ -23,9 +23,7 @@ include: "rules/pre_proced.smk"
 
 rule all:
     input:
-        "../results/plink.map",
-        "../results/plink.lgen",
-        "../results/plink.fam"
+        "../results/plink.hom"
     # shell: 
     #     "bash scripts/clean_data.sh"
 

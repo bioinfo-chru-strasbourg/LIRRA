@@ -14,7 +14,7 @@ report: "../report/workflow.rst"
 
 # print("1")
 #je ne sais pas si il faut 
-container: "plink:1.9"
+# container: "plink:1.9"
 
 # print("2")
 ###Config file ###
