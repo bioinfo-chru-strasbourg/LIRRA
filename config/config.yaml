@@ -30,13 +30,12 @@ ref :
             "##contig=<ID=chr20,length=63025520,assembly=hg19>",
             "##contig=<ID=chr21,length=48129895,assembly=hg19>",
             "##contig=<ID=chr22,length=51304566,assembly=hg19>",
-            "##contig=<ID=chrM,length=16571,assembly=hg19>",
-            "##contig=<ID=chrX,length=155270560,assembly=hg19>",
-            "##contig=<ID=chrY,length=59373566,assembly=hg19>",
   ]
 
 params:
   location_variant: "chr3:97510670"
+
+  ignore_centromere: True
 
   confidence_coefficient: 0.95
 

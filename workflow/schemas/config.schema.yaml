@@ -31,6 +31,10 @@ properties:
       location_variant: 
         type: string
 
+      ignore_centromere:
+        type: boolean
+        description: "False value signficate we take in account ROH detected after or before variant, and create biggest ROH. "
+
       confidence_coefficient: 
         type: number
 
