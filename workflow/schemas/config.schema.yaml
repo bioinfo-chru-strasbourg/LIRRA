@@ -23,14 +23,11 @@ properties:
         type: string
 
       contig_lenght: 
-        type: array
+        type: object
 
   params:
     type: object
     properties:
-      location_variant: 
-        type: string
-
       ignore_centromere:
         type: boolean
         description: "False value signficate we take in account ROH detected after or before variant, and create biggest ROH. "
@@ -45,16 +42,34 @@ properties:
       optimisation_mode: 
         type: boolean
 
+      correction_dating:
+        type: boolean
+
       ROH_detect_software: 
         type: string
 
       dating_software: 
         type: string
+
+variant_informations:
+  type: object
+  properties:
+    location_variant:
+      type: string
+
+puce_informations:
+  type: object
+  properties:
+    location_centromeres:
+      type: object
+      description: "Location of centromere in bp for ingnore_centromere option"
+        
     required:
       - location_variant
       - confidence_coefficient
       - optimisation_mode
       - ROH_detect_software
       - dating_software
+      - location_centromeres
     
 

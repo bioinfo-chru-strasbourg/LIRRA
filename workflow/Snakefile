@@ -23,11 +23,12 @@ include: "rules/pre_proced.smk"
 
 rule all:
     input:
-        "../results/plink.hom"
+        # "../results/plink.hom",
+        "../results/ROH_select.txt"
     # shell: 
     #     "bash scripts/clean_data.sh"
 
 
 include : "rules/summary_results.smk"
-include : "rules/dating_proced.smk"
 include: "rules/plink_proced.smk"
+include: "rules/dating_proced.smk"
