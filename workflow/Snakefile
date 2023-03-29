@@ -24,8 +24,7 @@ include: "rules/pre_proced.smk"
 rule all:
     input:
         # "../results/plink.hom",
-        "../results/ROH_select.txt"
-    # shell: 
+        "../results/summary.txt"    # shell: 
     #     "bash scripts/clean_data.sh"
 
 

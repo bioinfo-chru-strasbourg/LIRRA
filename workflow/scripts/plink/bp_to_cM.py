@@ -70,60 +70,62 @@ class convert_bp_to_cM :
     def find_cM_plink (self) :
         plink_data=pl.read_csv(os.path.join(os.path.dirname(__file__),"..","..","..","results","plink.map"), has_header=False, sep="\t")
         # print(plink_data)
-        self.chr_plink_map=plink_data["column_1"].to_list()
-        cM_plink_map=plink_data["column_3"].to_list()
+        dico_closest_sample_cM={}
+        self.list_bp_chrinterest=[]
+        list_cM_chrinterest=[]
         bp_plink_map=plink_data["column_4"].to_list()
-        # print(self.dico_sample_pos)
+
+        #search in first bp more closest than over if it's not a perfect match in plink.map build list of bp at chr interest
+        for row in plink_data.iter_rows(named=True):
+            if "chr"+str(row['column_1']) == self.chr_interest:
+                self.list_bp_chrinterest.append(int(row["column_4"]))
+                list_cM_chrinterest.append(row["column_3"])
         
-        #permet de recuperer les cM brut sans avoir enlever la valeur de la mutation cM
         for sample in self.dico_sample_pos:
             pos1=self.dico_sample_pos[sample].split(":")[0]
             pos2=self.dico_sample_pos[sample].split(":")[1]
-            #trouvé le bp plus proches et on peut indexer sur la liste cM
-            index_pos1=bp_plink_map.index(self.closest(bp_plink_map, int(pos1)))
-            index_pos2=bp_plink_map.index(self.closest(bp_plink_map, int(pos2)))
-            self.left_arms_cM.append(cM_plink_map[index_pos1])
-            self.right_arms_cM.append(cM_plink_map[index_pos2])
-        
-        self.mutation_cM=cM_plink_map[bp_plink_map.index(self.closest(bp_plink_map, int(self.mutation_positions)))]
-        print(self.mutation_cM)
-        self.create_input_datation()
-                
+            dico_closest_sample_cM[sample]= str(self.closest(self.list_bp_chrinterest, int(pos1))) + ":" + str(self.closest(self.list_bp_chrinterest, int(pos2)))
+            index_pos1=self.list_bp_chrinterest.index(self.closest(self.list_bp_chrinterest, int(pos1)))
+            index_pos2=self.list_bp_chrinterest.index(self.closest(self.list_bp_chrinterest, int(pos2)))
+            self.left_arms_cM.append(list_cM_chrinterest[index_pos1])
+            self.right_arms_cM.append(list_cM_chrinterest[index_pos2])
+
+        self.mutation_cM=list_cM_chrinterest[self.list_bp_chrinterest.index(self.closest(self.list_bp_chrinterest, self.mutation_positions))]
+#trouve pas exactement même end de ASG186327
+
+        # print(self.closest(list_bp_chrinterest, int(pos1)))
+        # print(self.left_arms_cM)
+        self.create_input_datation() 
+
     def create_input_datation(self):
-        nw_left_arms=[]
-        nw_right_arms=[]
+        self.left_arms_final=[]
+        self.right_arms_final=[]
         for i in self.left_arms_cM :
             # print(self.mutation_positions-i)
             if self.mutation_cM-i <0 :
-                nw_left_arms.append(((self.mutation_cM-i)*-1))
+                self.left_arms_final.append(abs(self.mutation_cM-i))
                 
             else :
-                nw_left_arms.append((self.mutation_cM-i))
+                self.left_arms_final.append((self.mutation_cM-i))
 
         for i in self.right_arms_cM :
             if self.mutation_cM-i <0 :
-                nw_right_arms.append(((self.mutation_cM-i)*-1))
+                self.right_arms_final.append(abs(self.mutation_cM-i))
             else :
-                nw_right_arms.append((self.mutation_cM-i))
-        
-        self.left_arms_cM.clear()
-        self.right_arms_cM.clear()
-        self.left_arms_cM=nw_left_arms
-        self.right_arms_cM=nw_right_arms
+                self.right_arms_final.append((self.mutation_cM-i))
 
     def get_markers_on_chromosome(self):
-        return self.chr_plink_map.count(int(self.chr_interest[3:]))
+        #la taille est proportionelle au nombre de marqueur sur chr3 puisque a chaque fois que l'on avait un chr d'interet on créer un élement de la liste
+        return len(self.list_bp_chrinterest)
 
     def get_left_arms(self):
-        return str(self.left_arms_cM).strip("]").strip("[").strip("'")
+        return str(self.left_arms_final).strip("]").strip("[").strip("'")
     
     def get_right_arms(self):
-        return str(self.right_arms_cM).strip("]").strip("[").strip("'")
+        return str(self.right_arms_final).strip("]").strip("[").strip("'")
         
 if __name__ =='__main__' : 
-    print(convert_bp_to_cM().get_left_arms())
-    print(convert_bp_to_cM().get_right_arms())
-    print(convert_bp_to_cM().get_markers_on_chromosome())
+    convert_bp_to_cM()
     # print(convert().markers_on_chromosome())
     
     #for BBS5

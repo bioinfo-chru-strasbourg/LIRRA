@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 import os
-import polars as pol
+import polars as pl
 import argparse
 
 

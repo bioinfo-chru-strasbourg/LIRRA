@@ -76,7 +76,7 @@ def main():
     # print(args.input)
     # print(args.output)
     # print(args.data_family)
-    fam = fam_file(args.input, args.output)
+    fam_file(args.input, args.output)
 
 
 if __name__ == "__main__":

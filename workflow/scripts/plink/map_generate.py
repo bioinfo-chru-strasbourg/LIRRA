@@ -31,7 +31,7 @@ class map_file:
             cM_column.append(cM_target.get(target_key, 0.0))
 
         kk = [i for i in cM_column if i == 0.0]
-        print(len(kk))
+        print("Number of 0 values cM = "+ str(len(kk)))
         return cM_column
 
     def generate_map(self):
@@ -53,7 +53,7 @@ class map_file:
             }
         )
 
-        map_final.write_csv(file=self.output, has_header=False, separator="\t")
+        map_final.write_csv(file=self.output, has_header=False, sep="\t")
 
         # df_lgen.to_csv(self.output, sep="\t",index=None, header=None)
 
@@ -79,7 +79,7 @@ def main():
         required=False,
         default=os.path.join(
             os.path.dirname(__file__), "..", "..", "..", "resources", "global_map.map"
-        ),
+        )
     )
     parser.add_argument(
         "-o",

@@ -46,13 +46,6 @@ rule create_file_fam:
     shell:
         "python scripts/plink/fam_generate.py --input {input} --output {output}"
 
-# rule find_ROH_lfile:
-#     output:
-#         # "../results/log.txt"
-#     shell:
-#         "docker run --rm -v /scripts/results::rw plink:1.9 --help 2>../results/{output}"
-        # "scripts/plink/find_roh.shdocker run --rm plink:1.9 plink1.9 --help 2>../results/{output}"
-
 rule find_ROH:
     input:
         "../results/plink.map",
@@ -62,27 +55,3 @@ rule find_ROH:
         "../results/plink.hom"
     shell:
         "python scripts/plink/run_docker.py"
-
-
-# rule find_ROH_lfile:
-#     output:
-#         "../results/log.txt"
-#     container:
-#         "docker://biocontainers/plink1.9:v1.90b6.6-181012-1-deb_cv1"
-#     shell:
-#         "scripts/test_docker.sh 2>../results/{output}"
-
-
-# rule create_file_fam:
-#     input: 
-#         "../results/input_puce.fam",
-#         "../results/plink.map"
-#         "../results/plink.lgen"
-#     output: "../results/Full_data_clean.csv"
-#     shell: "{input}"
-
-# rule create_file_lgen:
-#     input: 
-#         "../results/plink.lgen"
-#     output: "../results/Full_data_clean.csv"
-#     shell: "{input}"
