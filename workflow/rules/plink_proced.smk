@@ -1,6 +1,7 @@
 rule clean_data:
     output:
         "../results/Full_data_clean.csv" 
+    threads:8
     shell:
         "bash scripts/clean_data.sh"
 

@@ -6,7 +6,7 @@ import bp_to_cM
 # from bp_to_cM import convert_bp_to_cM
 class create_Mutation_script:
     def __init__(self):
-        self.input_datating = bp_to_cM.convert_bp_to_cM()
+        self.input_dating = bp_to_cM.convert_bp_to_cM()
         # self.bp_class.get
         self.load_config_args()
         self.create_variable()
@@ -22,12 +22,12 @@ class create_Mutation_script:
             # print(self.median_allele_frequency)
             
     def create_variable(self):
-        with open ("Mutation_Age_estimation.R", "w") as script_r:
+        with open (os.path.join(os.path.dirname(__file__),"Mutation_Age_estimation.R"), "w") as script_r:
             script_r.write(
-                "l.lengths=c("+self.input_datating.get_left_arms()+")\n"
+                "l.lengths=c("+self.input_dating.get_left_arms()+")\n"
             )
             script_r.write(
-                "r.lengths=c("+self.input_datating.get_right_arms()+")\n"
+                "r.lengths=c("+self.input_dating.get_right_arms()+")\n"
             )
             script_r.write(
                 "confidence.coefficient = "+str(self.confidence_coefficient)+"\n"
@@ -39,14 +39,19 @@ class create_Mutation_script:
                 "median.allele.frequency = "+str(self.median_allele_frequency)+"\n"
             )
             script_r.write(
-                "markers.on.chromosome = "+str(self.input_datating.get_markers_on_chromosome())+"\n"
+                "markers.on.chromosome = "+str(self.input_dating.get_markers_on_chromosome())+"\n"
             )
             script_r.write(
                 "length.of.chromosome = "+str(self.length_of_chromosome)+"\n"
             )
+            for line in self.append_algo():
+                script_r.write(line)
 
             script_r.close()
-        self.append_algo()
+        
+        with open(os.path.join(os.path.dirname(__file__),"..","..","..","results","summary.txt"), "w") as summary_file:
+            summary_file.write("Dating results : \n")
+            summary_file.close()
 
     def append_algo(self):
         lines=[]
@@ -58,10 +63,14 @@ class create_Mutation_script:
                 else :
                     lines.append(row_append)
             script_r_read.close()
+        return lines
 
-        with open("Mutation_Age_estimation.R", "a") as script_r_append:
-            for line in lines:
-                script_r_append.write(line)
+
+        # with open(os.path.join(os.path.dirname(__file__),"Mutation_Age_estimation.R"), "w") as script_r_append:
+        #     for line in lines:
+        #         script_r_append.write(line)
+
+
 
         
 

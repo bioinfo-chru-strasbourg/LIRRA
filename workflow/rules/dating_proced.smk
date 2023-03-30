@@ -6,15 +6,17 @@ rule roh_select:
     shell:
         "python scripts/plink/select_patients.py"
 
-rule summary:
+rule summary_first:
     input:
         "../results/ROH_select.txt"
     output:
         "../results/summary.txt"
-    threads: 5
+    threads: 1
+    conda:
+        "../envs/R_env.yaml"
     shell:
         """
-        conda activate R_env
         python scripts/plink/define_mutation_age.py
-        Rscript scripts/plink/Mutation_Age_estimation.R 1>../results/summary.txt
+        Rscript scripts/plink/Mutation_Age_estimation.R 1>>{output}
+
         """

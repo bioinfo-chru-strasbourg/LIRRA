@@ -16,4 +16,7 @@ if __name__ == "__main__":
     os.system("docker run --rm -v " + change_path(path_full) +":/data:rw plink:1.9 plink1.9 --noweb --lfile plink --recode")
     os.system("docker run --rm -v " + change_path(path_full) +":/data:rw plink:1.9 plink1.9 --noweb --file plink --genome --min 0 --max 1")
     os.system("docker run --rm -v " + change_path(path_full) +":/data:rw plink:1.9 plink1.9 --noweb --file plink --geno 0.01 --make-bed")
-    os.system("docker run --rm -v " + change_path(path_full) +":/data:rw plink:1.9 plink1.9 --noweb --bfile plink --homozyg --homozyg-snp 300 --homozyg-kb 4000 ")
+   # pour BBS5 
+    os.system("docker run --rm -v " + change_path(path_full) +":/data:rw plink:1.9 plink1.9 --noweb --bfile plink --homozyg --homozyg-snp 250 --homozyg-kb 2500 --homozyg-gap 1000 --homozyg-window-het 1 --homozyg-window-missing 5 --homozyg-window-snp 50 --homozyg-window-threshold 0.05")
+    #pour BBS3
+    # os.system("docker run --rm -v " + change_path(path_full) +":/data:rw plink:1.9 plink1.9 --noweb --bfile plink --homozyg --homozyg-snp 300 --homozyg-kb 4000 ")

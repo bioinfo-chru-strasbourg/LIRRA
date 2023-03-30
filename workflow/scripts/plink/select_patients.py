@@ -38,7 +38,7 @@ class select_patients:
                         # print(row)
                         roh_select.write("\t".join(row) + "\n")                    
                     else :
-                        if not self.ignore_centromere:
+                        if self.ignore_centromere == False:
                             #ROH centromerique seulement si on est a false pour ignorer le centromere
                             if self.roh_centromerique(row):
                                 line.append(row)
