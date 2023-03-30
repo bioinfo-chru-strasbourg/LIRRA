@@ -57,4 +57,13 @@ workflow/.snakemake/
 config/snp_data.csv
 config/list_puce_fam.fam
 config/snp_data_all.csv
+config/snp_data_cut.csv
+
 .snakemake/
+resources/global_map.map.gz
+resources/global_map.map
+
+#a faire à la fin
+__main__.py
+parseargs.py
+results/*
