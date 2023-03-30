@@ -1,6 +1,5 @@
 import pandas as pd
 import argparse
-import os
 
 
 class fam_file:
@@ -39,16 +38,29 @@ class fam_file:
         )
         final_fam.to_csv(self.output, sep="\t", header=None, index=None)
         final_fam.to_csv(self.path_lgen(), sep="\t", index=None)
-    
+
     def path_lgen(self):
         print(self.output)
-        path_lgen=str(self.output).split("/")
-        path_lgen=path_lgen[:len(path_lgen)-1]
+        path_lgen = str(self.output).split("/")
+        path_lgen = path_lgen[: len(path_lgen) - 1]
         path_lgen.append("puce_for_lgen.fam")
         print("/".join(path_lgen))
         return "/".join(path_lgen)
 
-        
+    __doc__ = """
+    Input example:
+    Family ID	Sample ID	Paternal ID	Maternal ID	Sex (1=M, 2=F)	Phenotype (1=unaffected, 2=affected)
+    FAM1	sample1			2	2
+    FAM2	sample2			1	2
+    FAM3	sample3			2	2
+    FAM3	sample4			1	2
+
+    Output example (no header):
+    FAM1	sample1 0   0   2   2
+    FAM2	sample2 0   0   1   2
+    FAM3	sample3 0   0   2   2
+    FAM3	sample4 0   0   1   2
+    """
 
 
 def main():
@@ -67,15 +79,12 @@ def main():
     parser.add_argument(
         "-o",
         "--output",
-        help="output file",
+        help="output file after script",
         type=str,
         required=True,
     )
 
     args = parser.parse_args()
-    # print(args.input)
-    # print(args.output)
-    # print(args.data_family)
     fam_file(args.input, args.output)
 
 

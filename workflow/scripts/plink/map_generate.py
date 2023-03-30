@@ -1,22 +1,19 @@
 import polars as pl
 import argparse
-
-# pip install "polars[all]"
-# pip install "polars[numpy,pandas,pyarrow]"
 import os
 
 
 class map_file:
     """This class are used for transform a raw data into fam file. It"s use like input for PLINK1.9"""
 
-    def __init__(self, file_input : str, cM_map : str, output : str):
+    def __init__(self, file_input: str, cM_map: str, output: str):
         self.file_input = file_input
         self.cM_map = cM_map
         self.output = output
         self.none_match = 0
         self.generate_map()
 
-    def search_cM_info(self, data ):
+    def search_cM_info(self, data):
         df_cM_map = pl.read_csv(self.cM_map, sep="\t")
         cM_target = {}
         cM_column = []
@@ -31,7 +28,7 @@ class map_file:
             cM_column.append(cM_target.get(target_key, 0.0))
 
         kk = [i for i in cM_column if i == 0.0]
-        print("Number of 0 values cM = "+ str(len(kk)))
+        print("Number of 0 values cM = " + str(len(kk)))
         return cM_column
 
     def generate_map(self):
@@ -39,7 +36,7 @@ class map_file:
             self.file_input, sep="\t", dtypes={"Name": str, "Chr": str, "Position": int}
         )
         cM_column = self.search_cM_info(data)
-        output_dir = os.path.dirname(self.output)  # recupere le chemin
+        output_dir = os.path.dirname(self.output)
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -54,10 +51,6 @@ class map_file:
         )
 
         map_final.write_csv(file=self.output, has_header=False, sep="\t")
-
-        # df_lgen.to_csv(self.output, sep="\t",index=None, header=None)
-
-        # TODO: il faut que je recupere le truc directe filepath+outputdir
 
 
 def main():
@@ -79,7 +72,7 @@ def main():
         required=False,
         default=os.path.join(
             os.path.dirname(__file__), "..", "..", "..", "resources", "global_map.map"
-        )
+        ),
     )
     parser.add_argument(
         "-o",
@@ -91,7 +84,7 @@ def main():
 
     args = parser.parse_args()
 
-    map = map_file(args.input, args.ref, args.output)
+    map_file(args.input, args.ref, args.output)
 
 
 if __name__ == "__main__":
