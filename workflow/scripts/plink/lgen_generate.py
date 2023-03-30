@@ -1,7 +1,6 @@
 import pandas as pd
 import re
 import os
-import polars as pl
 import argparse
 
 
@@ -47,11 +46,13 @@ class lgen_file:
                     [self.temporary_data, data_workflow_add], axis=1, join="inner"
                 )
 
-    """Columns format ouput from dataframe temporary"""
-    # snpID  samplID_TopAllele1  samplID_TopAllele2  samplID_TopAllele3
-    # rs001          AG                  GG                  CT
-    # rs002          CC                  AA                  CT
-    # rs003          GA                  GA                  --
+    """
+    Columns format ouput from dataframe temporary
+    snpID  samplID_TopAllele1  samplID_TopAllele2  samplID_TopAllele3
+    rs001          AG                  GG                  CT
+    rs002          CC                  AA                  CT
+    rs003          GA                  GA                  --
+    """
 
     def generate_lgen(self):
         """We work with dataframe temporary, each values are dispatched and transform on list informations"""
@@ -152,10 +153,7 @@ def main():
     )
 
     args = parser.parse_args()
-    # print(args.input)
-    # print(args.output)
-    # print(args.data_family)
-    lgen = lgen_file(args.input, args.output, args.data_family)
+    lgen_file(args.input, args.output, args.data_family)
 
 
 if __name__ == "__main__":
