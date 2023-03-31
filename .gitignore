@@ -67,3 +67,8 @@ resources/global_map.map
 __main__.py
 parseargs.py
 results/*
+
+config/list_puce_fam_BBS3.fam
+config/snp_data_BBS3.csv
+workflow/scripts/plink/Mutation_Age_estimation.R
+workflow/scripts/plink/final_summary.py

@@ -71,5 +71,60 @@ puce_informations:
       - ROH_detect_software
       - dating_software
       - location_centromeres
+
+path:
+  type: object
+  properties:
+    envs_R: 
+      type: string
+
+    final_summary: 
+      type: string
+
+    ROH_select: 
+      type: string
+
+    plink_hom:
+      type: string
+
+    plink_map: 
+      type: string
+
+    plink_fam: 
+      type: string
+
+    plink_lgen: 
+      type: string
+
+    input_fam: 
+      type: string
+
+    data_clean: 
+      type: string
+
+    plink_zero: 
+      type: string
+
+    input_map: 
+      type: string
+
+    list_puce_fam:
+      type: string
+
+    report: 
+      type: string
+
+    schema_config: 
+      type: string
+
+    schema_samples: 
+      type: string
+
+    raw_data: 
+      type: string
+
+    raw_list: 
+      type: string
+
     
 

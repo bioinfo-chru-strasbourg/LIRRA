@@ -2,11 +2,11 @@ import yaml
 import polars as pl
 
 
-class select_patients:
+class SelectPatients:
     def __init__(self):
         self.init_variant()
         self.prepare_file()
-        self.find_patient()
+        self.find_patients()
 
     def init_variant(self):
         with open("../config/config.yaml", "r") as file:
@@ -30,7 +30,7 @@ class select_patients:
         for row in data["column_1"]:
             self.data_work.append(str(row).split())
 
-    def find_patient(self):
+    def find_patients(self):
 
         with open("../results/ROH_select.txt", "w") as roh_select:
             for row in self.data_work:
@@ -83,7 +83,7 @@ class select_patients:
 
 
 if __name__ == "__main__":
-    select_patients()
+    SelectPatients()
     ##TODO : on est obligé d'avoir la position exactement égale au snp de ref il va falloir allé regardé dans le raw data les position exacte
     # TODO : on dois faire un premier tri sur les chromosomes qui nous interessent suivis des regions qui contiennent la mutation
     # TODO : on pourrait aussi ajouter les limites de snp centromeres

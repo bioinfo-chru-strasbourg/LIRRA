@@ -3,7 +3,7 @@ import os
 import polars as pl
 
 
-class convert_bp_to_cM:
+class ConvertBpToCM:
     def __init__(self):
         self.left_arms_cM = []
         self.right_arms_cM = []
@@ -134,4 +134,4 @@ class convert_bp_to_cM:
 
 
 if __name__ == "__main__":
-    convert_bp_to_cM()
+    ConvertBpToCM()

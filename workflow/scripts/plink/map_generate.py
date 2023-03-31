@@ -3,7 +3,7 @@ import argparse
 import os
 
 
-class map_file:
+class MapFile:
     """This class are used for transform a raw data into fam file. It"s use like input for PLINK1.9"""
 
     def __init__(self, file_input: str, cM_map: str, output: str):
@@ -50,7 +50,7 @@ class map_file:
             }
         )
 
-        map_final.write_csv(file=self.output, has_header=False, sep="\t")
+        map_final.write_csv(file=self.output, has_header=False, separator="\t")
 
 
 def main():
@@ -84,7 +84,7 @@ def main():
 
     args = parser.parse_args()
 
-    map_file(args.input, args.ref, args.output)
+    MapFile(args.input, args.ref, args.output)
 
 
 if __name__ == "__main__":

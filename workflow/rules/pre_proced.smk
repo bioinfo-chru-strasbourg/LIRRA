@@ -10,30 +10,26 @@ min_version("5.4.0")
 
 
 # print(os.getcwd())
-report: "../report/workflow.rst"
+# report: config["path"]["report"]
 
-# print("1")
-#je ne sais pas si il faut 
-# container: "plink:1.9"
-
-# print("2")
 ###Config file ###
 configfile: "../config/config.yaml"
 
 
+
 # print("3")
-validate(config, schema= "../schemas/config.schema.yaml")
+validate(config, schema= config["path"]["schema_config"])
 
 # print("4")
 
-samples = pd.read_csv("../config/snp_data.csv", sep="\t")
+samples = pd.read_csv(config["path"]["raw_data"], sep="\t")
 # # print(samples)
 # #pas sur que ça va marcher
-validate(samples, schema="../schemas/samples.schema.yaml")
+validate(samples, schema=config["path"]["schema_samples"])
 
-list_puce_fam=pd.read_csv("../config/list_puce_fam.fam", sep="\t")
+list_puce_fam=pd.read_csv(config["path"]["list_puce_fam"], sep="\t")
 # print(list_puce_fam)
-validate(list_puce_fam, schema="../schemas/list_puce_fam.schema.yaml")
+validate(list_puce_fam, schema=config["path"]["raw_list"])
 
 
 ####Helper Function####
