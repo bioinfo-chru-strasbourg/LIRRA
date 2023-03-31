@@ -1,58 +1,58 @@
 rule clean_data:
     output:
-        "../results/Full_data_clean.csv" 
+        config["path"]["data_clean"] 
     threads:8
     shell:
         "bash scripts/clean_data.sh"
 
 rule pre_create_file:
     input:
-        "../config/list_puce_fam.fam",
-        "../results/Full_data_clean.csv"
+        config["path"]["list_puce_fam"],
+        config["path"]["data_clean"]
     output:
-        "../results/data_input.map",
-        "../results/input_puce.fam"
+        config["path"]["input_map"],
+        config["path"]["input_fam"]
     shell:
         "bash scripts/plink/file_plink.sh"
 
 rule create_file_map_first:
     input: 
-        "../results/data_input.map"
+        config["path"]["input_map"]
     output: 
-        "../results/plink_with_zero.map",
+        config["path"]["plink_zero"]
     shell: 
         "python scripts/plink/map_generate.py --input {input} --output {output} "
 
 rule create_file_map_second:
     input:
-        "../results/plink_with_zero.map"
+        config["path"]["plink_zero"]
     output:
-        "../results/plink.map"
+        config["path"]["plink_map"]
     shell:
         "grep -v -w 0.0 {input} > {output}"
 
 rule create_file_lgen:
     input:
-        "../results/Full_data_clean.csv"
+        config["path"]["data_clean"]
     output:
-        "../results/plink.lgen"
+        config["path"]["plink_lgen"]
     shell:
         "python scripts/plink/lgen_generate.py --input {input} --output {output} "
 
 rule create_file_fam:
     input:
-        "../results/input_puce.fam"
+        config["path"]["input_fam"]
     output:
-        "../results/plink.fam"
+        config["path"]["plink_fam"]
     shell:
         "python scripts/plink/fam_generate.py --input {input} --output {output}"
 
 rule find_ROH:
     input:
-        "../results/plink.map",
-        "../results/plink.fam",
-        "../results/plink.lgen"
+        config["path"]["plink_map"],
+        config["path"]["plink_fam"],
+        config["path"]["plink_lgen"]
     output:
-        "../results/plink.hom"
+        config["path"]["plink_hom"]
     shell:
         "python scripts/plink/run_docker.py"

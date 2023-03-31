@@ -4,7 +4,7 @@ import os
 import argparse
 
 
-class lgen_file:
+class LgenFile:
     """This class are used for transform a raw datas into fam file. It's use like input for PLINK1.9"""
 
     def __init__(self, input: str, output: str, list_puce: str):
@@ -15,7 +15,7 @@ class lgen_file:
         self.column_top_alleles = []
         self.data_temporary()
 
-        self.famID_data = []
+        self.famid_data = []
         self.sample_data = []
         self.snp_data = []
         self.all1_data = []
@@ -69,7 +69,7 @@ class lgen_file:
         print(len(self.all2_data), "alleles length")
         print(len(self.sample_data), "sample id length")
         print(len(self.snp_data), "snp length")
-        print(len(self.famID_data), "fam length")
+        print(len(self.famid_data), "fam length")
 
     def fam_id_generate(self):
         """puce liste should contains sample id with own family id. Each couple are add into dictionary then use for
@@ -81,7 +81,7 @@ class lgen_file:
 
         for i in range(len(self.sample_data)):
             sample = self.sample_data[i]
-            self.famID_data.append(family_sample_columns.get(sample))
+            self.famid_data.append(family_sample_columns.get(sample))
 
     def sp_id_generate(self):
         for i in range(len(self.column_top_alleles)):
@@ -110,7 +110,7 @@ class lgen_file:
 
         df_lgen = pd.DataFrame(
             {
-                "Family ID": self.famID_data,
+                "Family ID": self.famid_data,
                 "Sample": self.sample_data,
                 "snp_ID": self.snp_data,
                 "Allele 1": self.all1_data,
@@ -153,7 +153,7 @@ def main():
     )
 
     args = parser.parse_args()
-    lgen_file(args.input, args.output, args.data_family)
+    LgenFile(args.input, args.output, args.data_family)
 
 
 if __name__ == "__main__":

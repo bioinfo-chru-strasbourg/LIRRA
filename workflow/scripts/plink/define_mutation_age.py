@@ -2,9 +2,9 @@ import yaml
 import os
 import bp_to_cM
 
-class create_Mutation_script:
+class CreateMutationScript:
     def __init__(self):
-        self.input_dating = bp_to_cM.convert_bp_to_cM()
+        self.input_dating = bp_to_cM.ConvertBpToCM()
         self.load_config_args()
         self.create_variable()
 
@@ -89,4 +89,4 @@ class create_Mutation_script:
 
 
 if __name__ == "__main__":
-    create_Mutation_script()
+    CreateMutationScript()

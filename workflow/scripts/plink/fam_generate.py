@@ -2,7 +2,7 @@ import pandas as pd
 import argparse
 
 
-class fam_file:
+class FamFile:
     """This class are used for transform a raw data into fam file. It's use like input for PLINK1.9"""
 
     def __init__(self, file_name, output):
@@ -85,7 +85,7 @@ def main():
     )
 
     args = parser.parse_args()
-    fam_file(args.input, args.output)
+    FamFile(args.input, args.output)
 
 
 if __name__ == "__main__":

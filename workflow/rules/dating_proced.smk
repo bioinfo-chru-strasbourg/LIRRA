@@ -1,19 +1,19 @@
 rule roh_select:
     input:
-        "../results/plink.hom"
+        config["path"]["plink_hom"]
     output:
-        "../results/ROH_select.txt"
+        config["path"]["ROH_select"]
     shell:
         "python scripts/plink/select_patients.py"
 
 rule summary_first:
     input:
-        "../results/ROH_select.txt"
+        config["path"]["ROH_select"]
     output:
-        "../results/summary.txt"
+        config["path"]["final_summary"]
     threads: 1
     conda:
-        "../envs/R_env.yaml"
+        config["path"]["envs_R"]
     shell:
         """
         python scripts/plink/define_mutation_age.py
