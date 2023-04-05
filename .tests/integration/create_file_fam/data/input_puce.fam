@@ -1,0 +1,4 @@
+Family ID	Sample ID	Paternal ID	Maternal ID	Sex (1=M, 2=F)	Phenotype (1=unaffected, 2=affected)
+FAM1	sample1			2	2
+FAM2	sample2			1	2
+FAM3	sample3			2	2

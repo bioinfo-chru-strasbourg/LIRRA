@@ -1,0 +1,130 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+description: snakemake configuration file, JSON schema recommandation
+
+type: object
+
+properties:
+
+  samples: 
+    type: string
+
+  list_puce_fam: 
+    type: string
+
+  ref :
+    properties:
+      species: 
+        type: string
+
+      data_type: 
+        type: string
+
+      build: 
+        type: string
+
+      contig_lenght: 
+        type: object
+
+  params:
+    type: object
+    properties:
+      ignore_centromere:
+        type: boolean
+        description: "False value signficate we take in account ROH detected after or before variant, and create biggest ROH. "
+
+      confidence_coefficient: 
+        type: number
+
+      variant_frequency: 
+        type: number
+
+      #Mode en cours de création qui va permettre de lancer un script qui cherchera a optimiser les para plink pour trouver le plus de ROH entre les patients, ce sera plus long par conséquent
+      optimisation_mode: 
+        type: boolean
+
+      correction_dating:
+        type: boolean
+
+      ROH_detect_software: 
+        type: string
+
+      dating_software: 
+        type: string
+
+variant_informations:
+  type: object
+  properties:
+    location_variant:
+      type: string
+
+puce_informations:
+  type: object
+  properties:
+    location_centromeres:
+      type: object
+      description: "Location of centromere in bp for ingnore_centromere option"
+        
+    required:
+      - location_variant
+      - confidence_coefficient
+      - optimisation_mode
+      - ROH_detect_software
+      - dating_software
+      - location_centromeres
+
+path:
+  type: object
+  properties:
+    envs_R: 
+      type: string
+
+    final_summary: 
+      type: string
+
+    ROH_select: 
+      type: string
+
+    plink_hom:
+      type: string
+
+    plink_map: 
+      type: string
+
+    plink_fam: 
+      type: string
+
+    plink_lgen: 
+      type: string
+
+    input_fam: 
+      type: string
+
+    data_clean: 
+      type: string
+
+    plink_zero: 
+      type: string
+
+    input_map: 
+      type: string
+
+    list_puce_fam:
+      type: string
+
+    report: 
+      type: string
+
+    schema_config: 
+      type: string
+
+    schema_samples: 
+      type: string
+
+    raw_data: 
+      type: string
+
+    raw_list: 
+      type: string
+
+    
+

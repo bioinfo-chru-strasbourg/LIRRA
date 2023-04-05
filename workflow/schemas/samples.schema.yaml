@@ -1,0 +1,29 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+decription: an entry in the data file, JSON schema recommandation
+
+properties: 
+  Index:
+    type: number
+    description: Index number of snp
+  
+  Name:
+    type: string
+    description: SNP name
+
+  Chr:
+    type: [number, string]
+    description: Chromosome number
+
+  Position:
+    type: number
+    description: Bp position 
+
+  haplotype_sampleX.Top Alleles:
+    type: string
+    description: Haplotype for each samples
+
+required:
+  - Index
+  - Name
+  - Chr
+  - Position

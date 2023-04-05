@@ -1,0 +1,22 @@
+rule roh_select:
+    input:
+        config["path"]["plink_hom"]
+    output:
+        config["path"]["ROH_select"]
+    shell:
+        "python scripts/plink/select_patients.py"
+
+rule summary_first:
+    input:
+        config["path"]["ROH_select"]
+    output:
+        config["path"]["final_summary"]
+    threads: 1
+    conda:
+        config["path"]["envs_R"]
+    shell:
+        """
+        python scripts/plink/define_mutation_age.py
+        Rscript scripts/plink/Mutation_Age_estimation.R 1>>{output}
+
+        """
