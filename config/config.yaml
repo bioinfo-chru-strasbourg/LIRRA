@@ -1,4 +1,4 @@
-samples: config/snp_data.csv
+samples: config/snp_data.tsv
 
 ref :
   species: homo_sapiens
@@ -94,7 +94,7 @@ path:
 
   input_fam: "/home1/BAS/hameaue/LIRRA/results/input_puce.fam"
 
-  data_clean: "/home1/BAS/hameaue/LIRRA/results/Full_data_clean.csv"
+  data_clean: "/home1/BAS/hameaue/LIRRA/results/Full_data_clean.tsv"
 
   plink_zero: "/home1/BAS/hameaue/LIRRA/results/plink_with_zero.map"
 
@@ -110,11 +110,11 @@ path:
 
   schema_samples: "/home1/BAS/hameaue/LIRRA/workflow/schemas/samples.schema.yaml"
 
-  raw_data: "/home1/BAS/hameaue/LIRRA/config/snp_data.csv"
+  raw_data: "/home1/BAS/hameaue/LIRRA/config/snp_data.tsv"
 
   raw_list: "/home1/BAS/hameaue/LIRRA/workflow/schemas/list_puce_fam.schema.yaml"
 
-
+  
 
 
 
