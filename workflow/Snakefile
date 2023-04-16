@@ -2,7 +2,7 @@ include: "rules/pre_proced.smk"
 
 rule all:
     input:
-        config["path"]["final_summary"]   
+        config["path"]["final_summary"]     
 
 
 include: "rules/summary_results.smk"

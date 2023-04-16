@@ -70,11 +70,15 @@ class ConvertBpToCM:
         dico_closest_sample_cM = {}
         self.list_bp_chrinterest = []
         list_cM_chrinterest = []
-
         for row in plink_data.iter_rows(named=True):
-            if "chr" + str(row["column_1"]) == self.chr_interest:
-                self.list_bp_chrinterest.append(int(row["column_4"]))
-                list_cM_chrinterest.append(row["column_3"])
+            if str(row["column_1"]).startswith("chr"):
+                if str(row["column_1"]) == self.chr_interest:
+                    self.list_bp_chrinterest.append(int(row["column_4"]))
+                    list_cM_chrinterest.append(row["column_3"])
+            else:
+                if "chr" + str(row["column_1"]) == self.chr_interest:
+                    self.list_bp_chrinterest.append(int(row["column_4"]))
+                    list_cM_chrinterest.append(row["column_3"])
 
         for sample in self.dico_sample_pos:
             pos1 = self.dico_sample_pos[sample].split(":")[0]

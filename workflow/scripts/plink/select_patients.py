@@ -1,9 +1,12 @@
 import yaml
 import polars as pl
+import wide_search_roh
+import os
 
 
 class SelectPatients:
     def __init__(self):
+        self.iteration = 0
         self.init_variant()
         self.prepare_file()
         self.find_patients()
@@ -31,23 +34,34 @@ class SelectPatients:
             self.data_work.append(str(row).split())
 
     def find_patients(self):
-
+        nb_line = 0
         with open("../results/ROH_select.txt", "w") as roh_select:
             for row in self.data_work:
                 line = []
-                print(row)
+                # print(row)
                 if "chr" + row[3] == self.chr_var:
                     pos1 = int(row[6])
                     pos2 = int(row[7])
                     if pos1 <= self.bp_var and pos2 >= self.bp_var:
                         line.append(row)
                         roh_select.write("\t".join(row) + "\n")
+                        nb_line = nb_line + 1
+
                     else:
                         if self.ignore_centromere == False:
                             if self.roh_centromerique(row):
                                 line.append(row)
-                                print("dedans")
+                                # print("dedans")
                                 roh_select.write("\t".join(row) + "\n")
+                                nb_line = nb_line + 1
+        self.iteration = self.iteration + 1
+        self.check_ROH_find(nb_line)
+
+    def check_ROH_find(self, nb_lines):
+        if self.iteration < 30:
+            if nb_lines < 2:
+                os.system("python scripts/plink/wide_search_roh.py ")
+                self.find_patients()
 
     def side_centromere(self, dict_centromere: dict):
         bounds_right = int(str(dict_centromere[self.chr_var]).split("-")[1])
