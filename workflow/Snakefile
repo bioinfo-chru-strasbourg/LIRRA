@@ -4,6 +4,7 @@ rule all:
     input:
         config["path"]["final_summary"]     
 
+
 include: "rules/summary_results.smk"
 include: "rules/plink_proced.smk"
 include: "rules/dating_proced.smk"
