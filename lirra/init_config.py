@@ -3,6 +3,7 @@ import logging as log
 import sys
 from lirra.commons import set_log_level
 import yaml
+from lirra.extract_samples import ExtractSamples
 
 
 class InitConfig:
@@ -110,5 +111,7 @@ class InitConfig:
                 + "/workflow/schemas/list_puce_fam.schema.yaml",
             },
         }
-        with open("config/config.yaml", "w") as configfile:
+        with open(self.path_user() + "/config/config.yaml", "w") as configfile:
             yaml.dump(dict_config, configfile, sort_keys=True)
+
+        ExtractSamples(int(self.args.ncores))

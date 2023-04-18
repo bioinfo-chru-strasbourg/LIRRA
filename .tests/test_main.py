@@ -80,6 +80,7 @@ def test_run_snakefile():
         sp.run(["cp", com.test_path + "/unit/config.yaml", com.config_directories_path])
 
     # run snakemake
+    os.system("rm ../results/*")
     os.system(
         "snakemake -c10 --use-conda --conda-frontend conda --directory /home1/BAS/hameaue/LIRRA/workflow/ -s /home1/BAS/hameaue/LIRRA/workflow/Snakefile"
     )
