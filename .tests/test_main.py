@@ -287,7 +287,7 @@ def test_rule_summary_first():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/summary_first/expected/summary.txt",
-            com.results_path + "/summary.txt",
+            com.integration_path + "/summary_first/expected/dating.txt",
+            com.results_path + "/dating.txt",
         ]
     )

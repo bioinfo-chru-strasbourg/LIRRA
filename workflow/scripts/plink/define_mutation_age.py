@@ -63,7 +63,7 @@ class CreateMutationScript:
 
         with open(
             os.path.join(
-                os.path.dirname(__file__), "..", "..", "..", "results", "summary.txt"
+                os.path.dirname(__file__), "..", "..", "..", "results", "dating.txt"
             ),
             "w",
         ) as summary_file:

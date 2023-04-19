@@ -80,7 +80,7 @@ puce_informations:
 path:
   envs_R: "/home1/BAS/hameaue/LIRRA/workflow/envs/R_env.yml"
 
-  final_summary: "/home1/BAS/hameaue/LIRRA/results/summary.txt"
+  final_summary: "/home1/BAS/hameaue/LIRRA/results/dating.txt"
 
   ROH_select: "/home1/BAS/hameaue/LIRRA/results/ROH_select.txt"
 

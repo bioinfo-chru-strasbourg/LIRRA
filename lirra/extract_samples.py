@@ -39,6 +39,8 @@ class ExtractSamples:
             raise FileNotFoundError(
                 f"target_data.tsv doesn't exist. Please check your data contains required informations(Group,Samples,Family(pedigree)) and they are in ({os.path.dirname(os.path.normpath(self.excel_user_path))}) directory."
             )
+        else:
+            self.check_entry_excel_user()
 
         self.load_data_user(self.excel_user_path)
 
@@ -74,7 +76,7 @@ class ExtractSamples:
 
                 else:
                     raise ValueError(
-                        "Impossible de construire les donées car il n'y a pas de Full data raw ni de snp_data"
+                        "Impossible de construire les donées car il n'y a pas de Full data raw ni de snp_data contenant les informations nécéssaires"
                     )
             else:
                 self.run_pipeline()
@@ -99,7 +101,7 @@ class ExtractSamples:
         self.init_fam_file()
 
     def create_snp(self, dict_extract):
-        log.INFO("snp_data.tsv building")
+        log.info("snp_data.tsv building")
         self.create_base_snp_data()
         self.path_raw = os.path.join(
             os.path.dirname(__file__), "..", "config", "Raw_data"
@@ -143,11 +145,69 @@ class ExtractSamples:
             separator="\t",
         )
 
+    def check_entry_excel_user(self):
+        excel_user = pl.read_csv(self.excel_user_path, separator="\t")
+        # print(len(excel_user["Family(pedigree)"]))
+        if excel_user.shape[0] == 0:
+            log.critical(
+                f"You should please fill in the target_data.tsv file in the directory {self.excel_user_path}"
+            )
+            exit()
+
+        elif excel_user.shape[0] >= 1:
+            if excel_user.shape[0] >= 1:
+                log.info(
+                    f"You can't obtain any dating for your cohorte it's necessary to have more 1 patient for one group"
+                )
+            """
+            Check if they are all columns required
+            Then check if they are all informations for each sample
+            """
+            target_columns = [
+                "Group",
+                "Sample",
+                "Sex (1=M, 2=F)",
+                "Phenotype (1=unaffected, 2=affected)",
+                "Family(pedigree)",
+            ]
+            for item in target_columns:
+                try:
+                    excel_user.columns.index(item)
+
+                except ValueError:
+                    log.critical(
+                        f"He miss {item} column in target_sample.tsv, thanks to add this column and fill in"
+                    )
+                    exit()
+            dic_sample = {}
+            index = 1
+            for sample in excel_user["Sample"].to_list():
+                dic_sample[index] = sample
+                index = index + 1
+            empty_info_patient = []
+            for item in target_columns:
+                if excel_user.shape[0] != len(excel_user[str(item)]):
+                    log.warning(
+                        f"Check length for your column {item} ans he is not empty for any patients"
+                    )
+                index = 1
+                print(index)
+                for information in excel_user[str(item)].to_list():
+                    if information == None:
+                        empty_info_patient.append(dic_sample[index])
+                    index = index + 1
+                if len(empty_info_patient) != 0:
+                    log.critical(
+                        f"Tanks to check information for your patients {empty_info_patient} in column {str(item)}. This columns can't be empty for any patients"
+                    )
+                    exit()
+
     def check_snp_data_exist(self, dict_extract):
         result = True
         snp_data_exist = pl.read_csv(self.path_snp_data, separator="\t")
         excel_user = pl.read_csv(self.excel_user_path, separator="\t")
         for group in set(excel_user["Group"].to_list()):
+            print(group)
             target_sample = [str(i) + ".Top Alleles" for i in dict_extract[group]]
 
         target_sample.extend(["Index", "Name", "Address", "Chr", "Position"])
