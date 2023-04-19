@@ -29,7 +29,7 @@ class ConvertBpToCM:
             os.path.join(
                 os.path.dirname(__file__), "..", "..", "..", "results", "ROH_select.txt"
             ),
-            sep="\t",
+            separator="\t",
             has_header=False,
         )
         self.dico_sample_pos = {}
@@ -65,7 +65,7 @@ class ConvertBpToCM:
                 os.path.dirname(__file__), "..", "..", "..", "results", "plink.map"
             ),
             has_header=False,
-            sep="\t",
+            separator="\t",
         )
         dico_closest_sample_cM = {}
         self.list_bp_chrinterest = []

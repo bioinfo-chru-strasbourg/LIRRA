@@ -99,6 +99,7 @@ class ExtractSamples:
         self.init_fam_file()
 
     def create_snp(self, dict_extract):
+        log.INFO("snp_data.tsv building")
         self.create_base_snp_data()
         self.path_raw = os.path.join(
             os.path.dirname(__file__), "..", "config", "Raw_data"
@@ -109,9 +110,6 @@ class ExtractSamples:
             self.lines.append(
                 f"cut -f \"$(head -n1 {os.path.normpath(self.path_full_data)} | tr '\\t' '\\n' | grep -n -E '{sample_search}' | cut -d: -f1 | paste -sd,)\" {os.path.normpath(self.path_full_data)} > {os.path.normpath(self.path_raw)}/group.tsv \n"
             )
-            # self.lines.append(
-            #     f"mkdir ../../Full_data_split_work/dir_groupe{group_list}  \n"
-            # )
             self.lines.append(
                 f"paste -d'\\t' {os.path.normpath(self.base_path)} {os.path.normpath(self.path_raw)}/group.tsv > {os.path.normpath(self.path_config)}/snp_data.tsv  \n"
             )
@@ -203,8 +201,3 @@ class ExtractSamples:
         os.system(
             f"snakemake -c{self.ncores} --use-conda --conda-frontend conda --directory {self.path_config}/../workflow/ -s {self.path_config}/../workflow/Snakefile"
         )
-        # print(
-        #     f"snakemake -c{self.ncores} --use-conda --conda-frontend conda --directory {os.path.normpath(self.path_config)}/../workflow/ -s {os.path.normpath(self.path_config)}/../workflow/Snakefile"
-        # )
-        # print(os.system("pwd"))
-        # exit()

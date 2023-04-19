@@ -60,7 +60,7 @@ class InitConfig:
                 "Data_input": self.args.Data_input,
                 "Analysis_mode": self.args.Analysis_mode,
             },
-            "variant_informations": {"location_variant": "chr2:170338824"},
+            "variant_informations": {"location_variant": self.args.location},
             "puce_informations": {
                 "location_centromeres": {
                     "chr1": "121000000-144000000",
@@ -88,7 +88,7 @@ class InitConfig:
                 },
             },
             "path": {
-                "envs_R": self.path_user() + "/workflow/envs/R_env.yaml",
+                "envs_R": self.path_user() + "/workflow/envs/R_env.yml",
                 "final_summary": self.path_user() + "/results/summary.txt",
                 "ROH_select": self.path_user() + "/results/ROH_select.txt",
                 "plink_hom": self.path_user() + "/results/plink.hom",

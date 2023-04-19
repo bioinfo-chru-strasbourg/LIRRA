@@ -81,6 +81,12 @@ def test_run_snakefile():
 
     # run snakemake
     os.system("rm ../results/*")
+
+    path_config = os.path.join(os.path.dirname(__file__), "..", "config")
+    os.system(
+        f"snakemake -c10 --use-conda --conda-frontend conda --directory {path_config}/../workflow/ -s {path_config}/../workflow/Snakefile"
+    )
+
     os.system(
         "snakemake -c10 --use-conda --conda-frontend conda --directory /home1/BAS/hameaue/LIRRA/workflow/ -s /home1/BAS/hameaue/LIRRA/workflow/Snakefile"
     )

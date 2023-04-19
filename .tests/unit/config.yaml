@@ -7,7 +7,7 @@ ref :
 
   build: hg19
 
-  contig_lenght: {
+  contig_length: {
         "chr1" : "249250621",
         "chr2" : "243199373",
         "chr3" : "198022430",
@@ -78,7 +78,7 @@ puce_informations:
     }
 
 path:
-  envs_R: "/home1/BAS/hameaue/LIRRA/workflow/envs/R_env.yaml"
+  envs_R: "/home1/BAS/hameaue/LIRRA/workflow/envs/R_env.yml"
 
   final_summary: "/home1/BAS/hameaue/LIRRA/results/summary.txt"
 

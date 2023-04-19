@@ -2,6 +2,7 @@ import yaml
 import os
 import bp_to_cM
 
+
 class CreateMutationScript:
     def __init__(self):
         self.input_dating = bp_to_cM.ConvertBpToCM()
@@ -26,7 +27,7 @@ class CreateMutationScript:
             self.chr_var = str(
                 prime_service["variant_informations"]["location_variant"]
             ).split(":")[0]
-            self.length_of_chromosome = prime_service["ref"]["contig_lenght"][
+            self.length_of_chromosome = prime_service["ref"]["contig_length"][
                 self.chr_var
             ]
 
