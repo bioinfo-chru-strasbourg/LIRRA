@@ -10,7 +10,7 @@ rule summary_first:
     input:
         config["path"]["ROH_select"]
     output:
-        config["path"]["final_summary"]
+        config["path"]["final_dating"]
     threads: 1
     conda:
         config["path"]["envs_R"]

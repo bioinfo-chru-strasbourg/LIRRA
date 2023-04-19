@@ -89,7 +89,7 @@ class InitConfig:
             },
             "path": {
                 "envs_R": self.path_user() + "/workflow/envs/R_env.yml",
-                "final_summary": self.path_user() + "/results/dating.txt",
+                "final_dating": self.path_user() + "/results/dating.txt",
                 "ROH_select": self.path_user() + "/results/ROH_select.txt",
                 "plink_hom": self.path_user() + "/results/plink.hom",
                 "plink_map": self.path_user() + "/results/plink.map",
