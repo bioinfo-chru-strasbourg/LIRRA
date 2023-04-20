@@ -7,7 +7,7 @@ ref :
 
   build: hg19
 
-  contig_lenght: {
+  contig_length: {
         "chr1" : "249250621",
         "chr2" : "243199373",
         "chr3" : "198022430",
@@ -78,11 +78,11 @@ puce_informations:
     }
 
 path:
-  envs_R: "/home1/BAS/hameaue/LIRRA/workflow/envs/R_env.yaml"
+  envs_R: "/home1/BAS/hameaue/LIRRA/workflow/envs/R_env.yml"
 
-  final_summary: "/home1/BAS/hameaue/LIRRA/results/summary.txt"
+  final_dating: "/home1/BAS/hameaue/LIRRA/results/dating.txt"
 
-  ROH_select: "/home1/BAS/hameaue/LIRRA/results/ROH_select.txt"
+  ROH_select: "/home1/BAS/hameaue/LIRRA/results/ROH_select.tsv"
 
   plink_hom: "/home1/BAS/hameaue/LIRRA/results/plink.hom"
 
@@ -113,6 +113,19 @@ path:
   raw_data: "/home1/BAS/hameaue/LIRRA/config/snp_data.tsv"
 
   raw_list: "/home1/BAS/hameaue/LIRRA/workflow/schemas/list_puce_fam.schema.yaml"
+
+  excel_output: /home1/BAS/hameaue/LIRRA/results/summary.xlsx
+
+  final_dating: /home1/BAS/hameaue/LIRRA/results/dating.txt
+
+  full_results: /home1/BAS/hameaue/LIRRA/results/full_results.tsv
+
+  custom_track: /home1/BAS/hameaue/LIRRA/results/custom_track.tsv
+
+  global_summary: /home1/BAS/hameaue/LIRRA/results/global_summary.tsv
+
+
+
 
   
 

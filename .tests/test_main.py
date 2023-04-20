@@ -76,12 +76,31 @@ def test_run_snakefile():
 
         sp.run(["cp", com.test_path + "/unit/config.yaml", com.config_directories_path])
     else:
-        # export list fam test
         sp.run(["cp", com.test_path + "/unit/config.yaml", com.config_directories_path])
 
+    if os.path.exists(com.config_directories_path + "/target_data.tsv"):
+        sp.run(
+            [
+                "mv",
+                com.config_directories_path + "/target_data.tsv",
+                com.config_directories_path + "/target_data_previous.tsv",
+            ]
+        )
+        sp.run(
+            ["cp", com.test_path + "/unit/target_data.tsv", com.config_directories_path]
+        )
+
+    else:
+        sp.run(
+            ["cp", com.test_path + "/unit/target_data.tsv", com.config_directories_path]
+        )
+
     # run snakemake
+    os.system("rm ../results/*")
+
+    path_config = os.path.join(os.path.dirname(__file__), "..", "config")
     os.system(
-        "snakemake -c10 --use-conda --conda-frontend conda --directory /home1/BAS/hameaue/LIRRA/workflow/ -s /home1/BAS/hameaue/LIRRA/workflow/Snakefile"
+        f"snakemake -c10 --use-conda --conda-frontend conda --directory {path_config}/../workflow/ -s {path_config}/../workflow/Snakefile"
     )
 
 
@@ -259,8 +278,8 @@ def test_rule_roh_select():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/roh_select/expected/ROH_select.txt",
-            com.results_path + "/ROH_select.txt",
+            com.integration_path + "/roh_select/expected/ROH_select.tsv",
+            com.results_path + "/ROH_select.tsv",
         ]
     )
 
@@ -271,8 +290,8 @@ def test_rule_summary_first():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/summary_first/data/ROH_select.txt",
-            com.results_path + "/ROH_select.txt",
+            com.integration_path + "/summary_first/data/ROH_select.tsv",
+            com.results_path + "/ROH_select.tsv",
         ]
     )
 
@@ -280,7 +299,63 @@ def test_rule_summary_first():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/summary_first/expected/summary.txt",
-            com.results_path + "/summary.txt",
+            com.integration_path + "/summary_first/expected/dating.txt",
+            com.results_path + "/dating.txt",
+        ]
+    )
+
+
+def test_create_output():
+    com = OutputChecker(os.path.dirname(__file__))
+    ##input##
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/data/ROH_select.tsv",
+            com.results_path + "/ROH_select.tsv",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/data/dating.txt",
+            com.results_path + "/dating.txt",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/data/plink.hom",
+            com.results_path + "/plink.hom",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/data/target_data.tsv",
+            com.config_directories_path + "/target_data.tsv",
+        ]
+    )
+
+    ##output##
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/expected/custom_track.tsv",
+            com.results_path + "/custom_track.tsv",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/expected/full_results.tsv",
+            com.results_path + "/full_results.tsv",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/expected/global_summary.tsv",
+            com.results_path + "/global_summary.tsv",
         ]
     )

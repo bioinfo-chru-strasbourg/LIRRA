@@ -2,6 +2,7 @@ import yaml
 import polars as pl
 import wide_search_roh
 import os
+import logging as log
 
 
 class SelectPatients:
@@ -35,7 +36,7 @@ class SelectPatients:
 
     def find_patients(self):
         nb_line = 0
-        with open("../results/ROH_select.txt", "w") as roh_select:
+        with open("../results/ROH_select.tsv", "w") as roh_select:
             for row in self.data_work:
                 line = []
                 # print(row)
@@ -44,6 +45,7 @@ class SelectPatients:
                     pos2 = int(row[7])
                     if pos1 <= self.bp_var and pos2 >= self.bp_var:
                         line.append(row)
+                        # print(line)
                         roh_select.write("\t".join(row) + "\n")
                         nb_line = nb_line + 1
 
@@ -51,15 +53,22 @@ class SelectPatients:
                         if self.ignore_centromere == False:
                             if self.roh_centromerique(row):
                                 line.append(row)
+                                # print(line)
                                 # print("dedans")
                                 roh_select.write("\t".join(row) + "\n")
                                 nb_line = nb_line + 1
+
         self.iteration = self.iteration + 1
+
         self.check_ROH_find(nb_line)
 
     def check_ROH_find(self, nb_lines):
-        if self.iteration < 30:
-            if nb_lines < 2:
+        if nb_lines < 2:
+            if self.iteration < 30:
+                if self.iteration == 0:
+                    log.info(
+                        "The default settings do not allow to retrieve all ROHs, use wider search parameters"
+                    )
                 os.system("python scripts/plink/wide_search_roh.py ")
                 self.find_patients()
 
