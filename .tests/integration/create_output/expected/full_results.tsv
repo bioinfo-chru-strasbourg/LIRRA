@@ -1,2 +1,4 @@
-Group	Nb sample tot	Nb sample in same family	Nb ROH tot	Nb ROH interest	Dating	Confidence	Nb sample find
-1	3	0	3	3	independant 187.5 years / correlated 150.0 years	independant 3.3,17.5 / correlated 1.9,21.7	3/3
+Sample ID	Length ROH	Nb SNP	Density
+sample1	6967.778	725	9.611
+sample2	6967.778	725	9.611
+sample3	6967.778	725	9.611

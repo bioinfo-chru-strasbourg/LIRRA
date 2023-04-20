@@ -157,10 +157,10 @@ class OutputExcelSummary:
         writer.close()
 
         output_by_group.to_csv(
-            f"{self.path_summary}/global_summary.tsv", index=False, sep="\t"
+            f"{self.path_summary}/full_results.tsv", index=False, sep="\t"
         )
         output_global.to_csv(
-            f"{self.path_summary}/full_results.tsv", index=False, sep="\t"
+            f"{self.path_summary}/global_summary.tsv", index=False, sep="\t"
         )
 
         output_view = pd.DataFrame(
