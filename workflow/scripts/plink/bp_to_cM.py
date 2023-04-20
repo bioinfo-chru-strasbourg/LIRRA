@@ -27,7 +27,7 @@ class ConvertBpToCM:
     def find_bp_arms(self):
         roh_select = pl.read_csv(
             os.path.join(
-                os.path.dirname(__file__), "..", "..", "..", "results", "ROH_select.txt"
+                os.path.dirname(__file__), "..", "..", "..", "results", "ROH_select.tsv"
             ),
             separator="\t",
             has_header=False,

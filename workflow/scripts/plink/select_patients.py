@@ -36,7 +36,7 @@ class SelectPatients:
 
     def find_patients(self):
         nb_line = 0
-        with open("../results/ROH_select.txt", "w") as roh_select:
+        with open("../results/ROH_select.tsv", "w") as roh_select:
             for row in self.data_work:
                 line = []
                 # print(row)
@@ -45,7 +45,7 @@ class SelectPatients:
                     pos2 = int(row[7])
                     if pos1 <= self.bp_var and pos2 >= self.bp_var:
                         line.append(row)
-                        print(line)
+                        # print(line)
                         roh_select.write("\t".join(row) + "\n")
                         nb_line = nb_line + 1
 
@@ -53,7 +53,7 @@ class SelectPatients:
                         if self.ignore_centromere == False:
                             if self.roh_centromerique(row):
                                 line.append(row)
-                                print(line)
+                                # print(line)
                                 # print("dedans")
                                 roh_select.write("\t".join(row) + "\n")
                                 nb_line = nb_line + 1

@@ -191,7 +191,7 @@ class ExtractSamples:
                         f"Check length for your column {item} ans he is not empty for any patients"
                     )
                 index = 1
-                print(index)
+                # print(index)
                 for information in excel_user[str(item)].to_list():
                     if information == None:
                         empty_info_patient.append(dic_sample[index])
@@ -207,7 +207,7 @@ class ExtractSamples:
         snp_data_exist = pl.read_csv(self.path_snp_data, separator="\t")
         excel_user = pl.read_csv(self.excel_user_path, separator="\t")
         for group in set(excel_user["Group"].to_list()):
-            print(group)
+            # print(group)
             target_sample = [str(i) + ".Top Alleles" for i in dict_extract[group]]
 
         target_sample.extend(["Index", "Name", "Address", "Chr", "Position"])

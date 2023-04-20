@@ -9,7 +9,7 @@ from lirra.extract_samples import ExtractSamples
 class InitConfig:
     def __init__(self, args):
         self.args = args
-        print(self.args)
+        # print(self.args)
         self.write_config()
 
     def path_user(self):
@@ -90,7 +90,7 @@ class InitConfig:
             "path": {
                 "envs_R": self.path_user() + "/workflow/envs/R_env.yml",
                 "final_dating": self.path_user() + "/results/dating.txt",
-                "ROH_select": self.path_user() + "/results/ROH_select.txt",
+                "ROH_select": self.path_user() + "/results/ROH_select.tsv",
                 "plink_hom": self.path_user() + "/results/plink.hom",
                 "plink_map": self.path_user() + "/results/plink.map",
                 "plink_fam": self.path_user() + "/results/plink.fam",
@@ -109,6 +109,10 @@ class InitConfig:
                 "raw_data": self.path_user() + "/config/snp_data.tsv",
                 "raw_list": self.path_user()
                 + "/workflow/schemas/list_puce_fam.schema.yaml",
+                "excel_output": self.path_user() + "/results/summary.xlsx",
+                "custom_track": self.path_user() + "/results/custom_track.tsv",
+                "global_summary": self.path_user() + "/results/global_summary.tsv",
+                "full_results": self.path_user() + "/results/full_results.tsv",
             },
         }
         with open(self.path_user() + "/config/config.yaml", "w") as configfile:

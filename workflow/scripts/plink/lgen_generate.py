@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import os
 import argparse
+import logging as log
 
 
 class LgenFile:
@@ -66,10 +67,10 @@ class LgenFile:
         self.fam_id_generate()
 
         """Control lenght for each columns of lfile"""
-        print(len(self.all2_data), "alleles length")
-        print(len(self.sample_data), "sample id length")
-        print(len(self.snp_data), "snp length")
-        print(len(self.famid_data), "fam length")
+        log.info(len(self.all2_data), "alleles length")
+        log.info(len(self.sample_data), "sample id length")
+        log.info(len(self.snp_data), "snp length")
+        log.info(len(self.famid_data), "fam length")
 
     def fam_id_generate(self):
         """puce liste should contains sample id with own family id. Each couple are add into dictionary then use for

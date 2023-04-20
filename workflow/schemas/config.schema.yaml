@@ -126,5 +126,8 @@ path:
     raw_list: 
       type: string
 
+    excel_output:
+      type: string
+
     
 

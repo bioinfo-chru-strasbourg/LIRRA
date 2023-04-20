@@ -1,0 +1,4 @@
+Group	Sample	Family(pedigree)	Project	Paternal_id	Maternal_id	Sex (1=M, 2=F)	Phenotype (1=unaffected, 2=affected)
+1	sample1	XIII.4				2	2
+1	sample2	XXX.7				2	2
+1	sample3	XXII.16				2	2

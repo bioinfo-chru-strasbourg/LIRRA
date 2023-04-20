@@ -2,9 +2,12 @@ include: "rules/pre_proced.smk"
 
 rule all:
     input:
-        config["path"]["final_summary"]     
+        config["path"]["excel_output"],     
+        config["path"]["custom_track"] ,    
+        config["path"]["global_summary"] ,    
+        config["path"]["full_results"] ,    
 
 
-include: "rules/summary_results.smk"
 include: "rules/plink_proced.smk"
 include: "rules/dating_proced.smk"
+include: "rules/summary_results.smk"

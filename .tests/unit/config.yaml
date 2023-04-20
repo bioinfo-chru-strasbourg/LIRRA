@@ -82,7 +82,7 @@ path:
 
   final_dating: "/home1/BAS/hameaue/LIRRA/results/dating.txt"
 
-  ROH_select: "/home1/BAS/hameaue/LIRRA/results/ROH_select.txt"
+  ROH_select: "/home1/BAS/hameaue/LIRRA/results/ROH_select.tsv"
 
   plink_hom: "/home1/BAS/hameaue/LIRRA/results/plink.hom"
 
@@ -113,6 +113,19 @@ path:
   raw_data: "/home1/BAS/hameaue/LIRRA/config/snp_data.tsv"
 
   raw_list: "/home1/BAS/hameaue/LIRRA/workflow/schemas/list_puce_fam.schema.yaml"
+
+  excel_output: /home1/BAS/hameaue/LIRRA/results/summary.xlsx
+
+  final_dating: /home1/BAS/hameaue/LIRRA/results/dating.txt
+
+  full_results: /home1/BAS/hameaue/LIRRA/results/full_results.tsv
+
+  custom_track: /home1/BAS/hameaue/LIRRA/results/custom_track.tsv
+
+  global_summary: /home1/BAS/hameaue/LIRRA/results/global_summary.tsv
+
+
+
 
   
 
