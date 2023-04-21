@@ -171,6 +171,7 @@ class OutputExcelSummary:
                 "name": self.name,
             }
         )
+
         output_view.to_csv(
             f"{self.path_summary}/custom_track.tsv", sep="\t", index=False
         )

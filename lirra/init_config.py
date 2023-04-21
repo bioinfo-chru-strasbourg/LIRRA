@@ -59,6 +59,7 @@ class InitConfig:
                 "n_cores": self.args.ncores,
                 "Data_input": self.args.Data_input,
                 "Analysis_mode": self.args.Analysis_mode,
+                "ram": self.args.ram,
             },
             "variant_informations": {"location_variant": self.args.location},
             "puce_informations": {
@@ -113,6 +114,10 @@ class InitConfig:
                 "custom_track": self.path_user() + "/results/custom_track.tsv",
                 "global_summary": self.path_user() + "/results/global_summary.tsv",
                 "full_results": self.path_user() + "/results/full_results.tsv",
+                "vcf_unphased": self.path_user() + "/results/vcf_unphased.vcf",
+                "vcf_phased": self.path_user() + "/results/vcf_phased.vcf.gz",
+                "fasta_genome": self.path_user() + "/resources/hg19.fa",
+                "hap-ibd_hbd": self.path_user() + "/results/hap-ibd.hbd.gz",
             },
         }
         with open(self.path_user() + "/config/config.yaml", "w") as configfile:
