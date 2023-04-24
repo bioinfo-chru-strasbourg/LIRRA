@@ -60,7 +60,7 @@ class RunDocker:
 
     def run_hap_ibd(self):
         os.system(
-            f"docker run --rm -v {self.change_path(self.montage[0])}:/data:rw eliseverin/hap-ibd:1.0 java -jar hap-ibd.jar gt=/data/vcf_phased.vcf.gz map=/data/plink.map out=/data/hap-ibd"
+            f"docker run --rm -v {self.change_path(self.montage[0])}:/data:rw eliseverin/hap-ibd:1.0 java -jar hap-ibd.jar gt=/data/vcf_phased.vcf.gz map=/data/plink.map out=/data/hap-ibd min-mac=1"
         )
 
     def change_path(self, directory: str):

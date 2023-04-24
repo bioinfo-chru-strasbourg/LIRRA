@@ -107,7 +107,7 @@ elif config["params"]["ROH_detect_software"] == "hap-ibd" :
         input:
             config["path"]["vcf_phased"]
         output:
-            config["path"]["hap-ibd_hbd"]
+            config["path"]["hap-ibd_hbd_gz"]
             
         shell:
             "python scripts/hap-ibd/run_docker_hap_ibd.py -fo hap-ibd"

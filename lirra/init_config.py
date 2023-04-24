@@ -117,7 +117,8 @@ class InitConfig:
                 "vcf_unphased": self.path_user() + "/results/vcf_unphased.vcf",
                 "vcf_phased": self.path_user() + "/results/vcf_phased.vcf.gz",
                 "fasta_genome": self.path_user() + "/resources/hg19.fa",
-                "hap-ibd_hbd": self.path_user() + "/results/hap-ibd.hbd.gz",
+                "hap-ibd_hbd_gz": self.path_user() + "/results/hap-ibd.hbd.gz",
+                "hap-ibd_hbd": self.path_user() + "/results/hap-ibd.hbd",
             },
         }
         with open(self.path_user() + "/config/config.yaml", "w") as configfile:

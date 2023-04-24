@@ -73,3 +73,4 @@ config/snp_data_BBS3.csv
 workflow/scripts/plink/Mutation_Age_estimation.R
 workflow/scripts/plink/final_summary.py
 config/target_data.tsv
+.tests_hap_ibd/
