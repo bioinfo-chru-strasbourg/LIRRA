@@ -2,12 +2,13 @@ include: "rules/pre_proced.smk"
 
 rule all:
     input:
+        # config["path"]["hap-ibd_hbd"]
         config["path"]["excel_output"],     
         config["path"]["custom_track"] ,    
         config["path"]["global_summary"] ,    
         config["path"]["full_results"] ,    
 
 
-include: "rules/plink_proced.smk"
+include: "rules/proced.smk"
 include: "rules/dating_proced.smk"
 include: "rules/summary_results.smk"

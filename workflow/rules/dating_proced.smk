@@ -1,10 +1,21 @@
-rule roh_select:
-    input:
-        config["path"]["plink_hom"]
-    output:
-        config["path"]["ROH_select"]
-    shell:
-        "python scripts/plink/select_patients.py"
+if config["params"]["ROH_detect_software"] == "plink" :
+    rule roh_select_plink:
+        input:
+            config["path"]["plink_hom"]
+        output:
+            config["path"]["ROH_select"]
+        shell:
+            "python scripts/plink/select_patients_plink.py"
+
+elif config["params"]["ROH_detect_software"] == "hap-ibd" :
+    rule roh_select_hap_ibd:
+        input:
+            config["path"]["hap-ibd_hbd_gz"]
+        output:
+            config["path"]["ROH_select"]
+        shell:
+            "python scripts/hap-ibd/select_patients_hap_ibd.py"
+
 
 rule summary_first:
     input:

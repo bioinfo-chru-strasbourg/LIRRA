@@ -131,7 +131,12 @@ class ExtractSamples:
         self.base_path = os.path.join(
             os.path.dirname(__file__), "..", "config", "Raw_data", "base.tsv"
         )
-        full_data_exist = pl.read_csv(self.path_full_data, separator="\t")
+        full_data_exist = pl.read_csv(
+            self.path_full_data,
+            separator="\t",
+            dtypes={"Chr": str},
+            columns=["Index", "Name", "Address", "Chr", "Position"],
+        )
         pl.DataFrame(
             {
                 "Index": full_data_exist["Index"].to_list(),
@@ -204,7 +209,9 @@ class ExtractSamples:
 
     def check_snp_data_exist(self, dict_extract):
         result = True
-        snp_data_exist = pl.read_csv(self.path_snp_data, separator="\t")
+        snp_data_exist = pl.read_csv(
+            self.path_snp_data, separator="\t", dtypes={"Chr": str}, ignore_errors=True
+        )
         excel_user = pl.read_csv(self.excel_user_path, separator="\t")
         for group in set(excel_user["Group"].to_list()):
             # print(group)
@@ -222,7 +229,9 @@ class ExtractSamples:
 
     def check_full_data_exist(self, dict_extract):
         result = True
-        full_data_exist = pl.read_csv(self.path_full_data, separator="\t")
+        full_data_exist = pl.read_csv(
+            self.path_full_data, separator="\t", dtypes={"Chr": str}, ignore_errors=True
+        )
         excel_user = pl.read_csv(self.excel_user_path, separator="\t")
         for group in set(excel_user["Group"].to_list()):
             target_sample = [str(i) + ".Top Alleles" for i in dict_extract[group]]

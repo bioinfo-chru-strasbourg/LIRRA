@@ -23,13 +23,15 @@ class SelectPatients:
                     ":"
                 )[1]
             )
+            self.plink_hom = prime_service["path"]["plink_hom"]
+
             self.ignore_centromere = prime_service["params"]["ignore_centromere"]
             self.side_centromere = self.side_centromere(
                 prime_service["puce_informations"]["location_centromeres"]
             )
 
     def prepare_file(self):
-        data = pl.read_csv("../results/plink.hom", skip_rows=1, has_header=False)
+        data = pl.read_csv(self.plink_hom, skip_rows=1, has_header=False)
         self.data_work = []
         for row in data["column_1"]:
             self.data_work.append(str(row).split())
