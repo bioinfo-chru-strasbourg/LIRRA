@@ -98,8 +98,6 @@ class ExtractSamples:
                     "Impossible de construire les donées car il n'y a pas de Full data raw ni de snp_data"
                 )
 
-        self.init_fam_file()
-
     def create_snp(self, dict_extract):
         log.info("snp_data.tsv building")
         self.create_base_snp_data()
@@ -267,6 +265,7 @@ class ExtractSamples:
         )
 
     def run_pipeline(self):
+        self.init_fam_file()
         os.system(
             f"snakemake -c{self.ncores} --use-conda --conda-frontend conda --directory {self.path_config}/../workflow/ -s {self.path_config}/../workflow/Snakefile"
         )

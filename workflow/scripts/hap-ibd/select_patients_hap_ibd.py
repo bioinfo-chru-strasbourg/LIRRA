@@ -23,6 +23,14 @@ class SelectPatients:
                 )[1]
             )
             self.ignore_centromere = prime_service["params"]["ignore_centromere"]
+            if self.ignore_centromere.startswith(
+                "T"
+            ) or self.ignore_centromere.startswith("t"):
+                self.ignore_centromere = True
+            elif self.ignore_centromere.startswith(
+                "F"
+            ) or self.ignore_centromere.startswith("f"):
+                self.ignore_centromere = False
             self.hap_ibd_hbd_gz = prime_service["path"]["hap-ibd_hbd_gz"]
             self.hap_ibd_hbd = prime_service["path"]["hap-ibd_hbd"]
             self.side_centromere = self.side_centromere(
@@ -49,9 +57,11 @@ class SelectPatients:
                 if row[4] == self.chr_var:
                     pos1 = int(row[5])
                     pos2 = int(row[6])
+                    # print(f"{pos1} <= {self.bp_var} and {pos2} >= {self.bp_var}")
+                    # print(row[2])
                     if pos1 <= self.bp_var and pos2 >= self.bp_var:
                         line.extend(row)
-                        print(line)
+                        # print(line)
                         roh_select.write("\t".join(row) + "\n")
                         nb_line = nb_line + 1
 
@@ -95,10 +105,10 @@ class SelectPatients:
 
     def roh_centromerique(self, row):
         if self.ref_centromere[0] == "left":
-            if int(row[7]) == self.ref_centromere[1]:
+            if int(row[6]) == self.ref_centromere[1]:
                 return True
         if self.ref_centromere[0] == "right":
-            if int(row[6]) == self.ref_centromere[1]:
+            if int(row[5]) == self.ref_centromere[1]:
                 return True
         else:
             return False
