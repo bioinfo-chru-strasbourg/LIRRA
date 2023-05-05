@@ -3,9 +3,9 @@ params:
   Data_input: snp
   ROH_detect_software: plink
   confidence_coefficient: 0.95
-  correction_dating: false
+  correction_dating: 'false'
   dating_software: R_mutation
-  ignore_centromere: true
+  ignore_centromere: 'true'
   n_cores: 6
   ram: 35
   variant_frequency: 2.22e-06

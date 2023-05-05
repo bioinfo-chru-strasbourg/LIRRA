@@ -29,7 +29,7 @@ properties:
     type: object
     properties:
       ignore_centromere:
-        type: boolean
+        type: string
         description: "False value signficate we take in account ROH detected after or before variant, and create biggest ROH. "
 
       confidence_coefficient: 
@@ -43,7 +43,7 @@ properties:
         type: boolean
 
       correction_dating:
-        type: boolean
+        type: string
 
       ROH_detect_software: 
         type: string

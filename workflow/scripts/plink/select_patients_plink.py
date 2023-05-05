@@ -26,6 +26,14 @@ class SelectPatients:
             self.plink_hom = prime_service["path"]["plink_hom"]
 
             self.ignore_centromere = prime_service["params"]["ignore_centromere"]
+            if self.ignore_centromere.startswith(
+                "T"
+            ) or self.ignore_centromere.startswith("t"):
+                self.ignore_centromere = True
+            elif self.ignore_centromere.startswith(
+                "F"
+            ) or self.ignore_centromere.startswith("f"):
+                self.ignore_centromere = False
             self.side_centromere = self.side_centromere(
                 prime_service["puce_informations"]["location_centromeres"]
             )
@@ -45,6 +53,7 @@ class SelectPatients:
                 if "chr" + row[3] == self.chr_var:
                     pos1 = int(row[6])
                     pos2 = int(row[7])
+                    # if self.ignore_centromere == True:
                     if pos1 <= self.bp_var and pos2 >= self.bp_var:
                         line.append(row)
                         # print(line)
@@ -54,6 +63,7 @@ class SelectPatients:
                     else:
                         if self.ignore_centromere == False:
                             if self.roh_centromerique(row):
+                                # print("hey")
                                 line.append(row)
                                 # print(line)
                                 # print("dedans")
@@ -75,6 +85,7 @@ class SelectPatients:
                 self.find_patients()
 
     def side_centromere(self, dict_centromere: dict):
+        # For locate where is the variant compare too centromere
         bounds_right = int(str(dict_centromere[self.chr_var]).split("-")[1])
         bounds_left = int(str(dict_centromere[self.chr_var]).split("-")[0])
         self.ref_centromere = []
