@@ -3,7 +3,7 @@ rule clean_data:
         config["path"]["data_clean"] 
     threads:8
     shell:
-        "bash scripts/clean_data.sh"
+        "python scripts/clean_check_rs.py"
 
 if config["params"]["ROH_detect_software"] == "plink" :
     rule pre_create_file:

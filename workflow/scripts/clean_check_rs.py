@@ -43,6 +43,7 @@ class CleanCheckRs:
             self.path_full_data_clean_dup,
             separator="\t",
             columns=["Name", "Chr", "Position"],
+            dtypes={"Chr": str},
         )
         dic_check_dup = {}
         dic_dup_find = {}
@@ -63,7 +64,10 @@ class CleanCheckRs:
         self.load_db_snp_info()
         # print(self.dict_db_snp_info)
         self.final_data_uniq = pl.read_csv(
-            self.path_full_data_clean_dup, separator="\t"
+            self.path_full_data_clean_dup,
+            separator="\t",
+            dtypes={"Chr": str},
+            ignore_errors=True,
         )
         lines = []
         for row in self.final_data_uniq.iter_rows(named=True):

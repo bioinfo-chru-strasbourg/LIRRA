@@ -98,6 +98,7 @@ class InitConfig:
                 "plink_lgen": self.path_user() + "/results/plink.lgen",
                 "input_fam": self.path_user() + "/results/input_puce.fam",
                 "data_clean": self.path_user() + "/results/Full_data_clean.tsv",
+                "data_clean_dup": self.path_user() + "/results/Full_data_clean_dup.tsv",
                 "plink_zero": self.path_user() + "/results/plink_with_zero.map",
                 "input_map": self.path_user() + "/results/data_input.map",
                 "list_puce_fam": self.path_user() + "/config/list_puce_fam.fam",
@@ -119,6 +120,7 @@ class InitConfig:
                 "fasta_genome": self.path_user() + "/resources/hg19.fa",
                 "hap-ibd_hbd_gz": self.path_user() + "/results/hap-ibd.hbd.gz",
                 "hap-ibd_hbd": self.path_user() + "/results/hap-ibd.hbd",
+                "db_snp": self.path_user() + "/resources/db_snp_info.vcf",
             },
         }
         with open(self.path_user() + "/config/config.yaml", "w") as configfile:
