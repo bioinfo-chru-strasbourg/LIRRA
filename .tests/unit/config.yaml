@@ -37,6 +37,9 @@ path:
   schema_samples: /home1/BAS/hameaue/LIRRA/workflow/schemas/samples.schema.yaml
   vcf_phased: /home1/BAS/hameaue/LIRRA/results/vcf_phased.vcf.gz
   vcf_unphased: /home1/BAS/hameaue/LIRRA/results/vcf_unphased.vcf
+  data_clean_dup: /home1/BAS/hameaue/LIRRA/results/Full_data_clean_dup.tsv
+  db_snp: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf
+
 puce_informations:
   location_centromeres:
     chr1: 121000000-144000000
