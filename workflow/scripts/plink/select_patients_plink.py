@@ -7,10 +7,11 @@ import logging as log
 
 class SelectPatients:
     def __init__(self):
-        self.iteration = 0
+        self.lines = []
         self.init_variant()
         self.prepare_file()
         self.find_patients()
+        self.write_roh_select()
 
     def init_variant(self):
         with open("../config/config.yaml", "r") as file:
@@ -45,44 +46,48 @@ class SelectPatients:
             self.data_work.append(str(row).split())
 
     def find_patients(self):
-        nb_line = 0
-        with open("../results/ROH_select.tsv", "w") as roh_select:
-            for row in self.data_work:
-                line = []
+        for row in self.data_work:
+            if "chr" + row[3] == self.chr_var:
                 # print(row)
+                pos1 = int(row[6])
+                pos2 = int(row[7])
+                # if self.ignore_centromere == True:
+                if pos1 <= self.bp_var and pos2 >= self.bp_var:
+                    self.lines.append(row)
+
+                else:
+                    if self.ignore_centromere == False:
+                        if self.roh_centromerique(row):
+                            # print("hey")
+                            self.lines.append(row)
+        self.check_ROH_find()
+
+    def check_ROH_find(self):
+        if len(self.lines) <= 1:
+            log.info(
+                "The default settings do not allow to retrieve all ROHs, use wider search parameters"
+            )
+
+            os.system("python scripts/plink/wide_search_roh.py ")
+            self.lines.clear()
+            self.prepare_file()
+            for row in self.data_work:
                 if "chr" + row[3] == self.chr_var:
                     pos1 = int(row[6])
                     pos2 = int(row[7])
-                    # if self.ignore_centromere == True:
                     if pos1 <= self.bp_var and pos2 >= self.bp_var:
-                        line.append(row)
-                        # print(line)
-                        roh_select.write("\t".join(row) + "\n")
-                        nb_line = nb_line + 1
+                        self.lines.append(row)
 
                     else:
                         if self.ignore_centromere == False:
                             if self.roh_centromerique(row):
-                                # print("hey")
-                                line.append(row)
-                                # print(line)
-                                # print("dedans")
-                                roh_select.write("\t".join(row) + "\n")
-                                nb_line = nb_line + 1
+                                self.lines.append(row)
 
-        self.iteration = self.iteration + 1
-
-        self.check_ROH_find(nb_line)
-
-    def check_ROH_find(self, nb_lines):
-        if nb_lines < 2:
-            if self.iteration < 30:
-                if self.iteration == 0:
-                    log.info(
-                        "The default settings do not allow to retrieve all ROHs, use wider search parameters"
-                    )
-                os.system("python scripts/plink/wide_search_roh.py ")
-                self.find_patients()
+    def write_roh_select(self):
+        with open("../results/ROH_select.tsv", "w") as roh_select:
+            print(self.lines)
+            for line in self.lines:
+                roh_select.write("\t".join(line) + "\n")
 
     def side_centromere(self, dict_centromere: dict):
         # For locate where is the variant compare too centromere
