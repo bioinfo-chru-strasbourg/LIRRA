@@ -3,6 +3,7 @@ import polars as pl
 import pandas as pd
 import yaml
 import logging as log
+from homozigosity_individual import HomozigosityIndividual
 
 
 class OutputExcelSummary:
@@ -212,12 +213,18 @@ class OutputExcelSummary:
             }
         )
 
+        homozigosity_output = HomozigosityIndividual()
+        # print(homozigosity_output)
+
         writer = pd.ExcelWriter(
             f"{self.path_summary}/summary.xlsx",
             engine="xlsxwriter",
         )
         output_global.to_excel(writer, sheet_name="Global_summary", index=False)
         output_by_group.to_excel(writer, sheet_name="Focus in group", index=False)
+        homozigosity_output.df_homo.to_excel(
+            writer, sheet_name="homozigosity", index=False
+        )
         # output_focus_all_patients.to_excel(writer, sheet_name="All patients")
         # # TODO: Il faudrait avoir plusieurs output par groupe avec le nb de groupe dans la target
         writer.close()
@@ -227,6 +234,11 @@ class OutputExcelSummary:
         )
         output_global.to_csv(
             f"{self.path_summary}/global_summary.tsv", index=False, sep="\t"
+        )
+        homozigosity_output.df_homo.to_csv(
+            f"{self.path_summary}/homozigosity.tsv",
+            index=False,
+            sep="\t",
         )
 
         output_view = pd.DataFrame(

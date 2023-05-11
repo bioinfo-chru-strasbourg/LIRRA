@@ -104,8 +104,11 @@ def test_run_snakefile():
     )
 
     os.system(
-        f"sort -k1,1V -k5,2V -k6,3n {os.path.normpath(com.results_path)}/hap-ibd.hbd >{os.path.normpath(com.results_path)}/hap-ibd_cmp.hbd"
+        f"sort -k1,1V -k5,2V -k6,3n {os.path.normpath(com.results_path)}/hap-ibd.hbd > {os.path.normpath(com.results_path)}/hap-ibd_cmp.hbd"
     )
+    # os.system(
+    #     f"sort -k1,1V {os.path.normpath(com.results_path)}/homozigosity.tsv > {os.path.normpath(com.results_path)}/homozigosity_cmp.tsv"
+    # )
     os.system(f"mv ../results/vcf_unphased.vcf ../results/uncheck_vcf_unphased.vcf")
     os.system(
         f'grep -v "^##" ../results/uncheck_vcf_unphased.vcf > ../results/vcf_unphased.vcf'
@@ -350,4 +353,10 @@ def test_create_output():
         ]
     )
 
-    # les fichier vcf_phased et unphased ne marche pas juste regarder si on garde bien les ROHs
+    # sp.check_output(
+    #     [
+    #         "cmp",
+    #         com.integration_path + "/create_output/expected/homozigosity.tsv",
+    #         com.results_path + "/homozigosity_cmp.tsv",
+    #     ]
+    # )

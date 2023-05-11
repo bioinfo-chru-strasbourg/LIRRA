@@ -359,3 +359,10 @@ def test_create_output():
             com.results_path + "/global_summary.tsv",
         ]
     )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/create_output/expected/homozigosity.tsv",
+            com.results_path + "/homozigosity.tsv",
+        ]
+    )
