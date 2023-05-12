@@ -4,6 +4,7 @@ import pandas as pd
 import yaml
 import logging as log
 from homozigosity_individual import HomozigosityIndividual
+from dating.easy_dating import EasyDating
 
 
 class OutputExcelSummary:
@@ -65,6 +66,7 @@ class OutputExcelSummary:
             self.roh_software = prime_service["params"]["ROH_detect_software"]
             self.path_hbd_gz = prime_service["path"]["hap-ibd_hbd_gz"]
             self.path_hbd = prime_service["path"]["hap-ibd_hbd"]
+            self.software_dating = prime_service["params"]["dating_software"]
 
     def output_global(self):
         dict_output_global = {}
@@ -84,28 +86,39 @@ class OutputExcelSummary:
         log.debug(self.nb_same_fam)
 
         # Dating informations
-        with open(self.path_dating, "r") as dating_file:
-            nb_line = 0
-            for row in dating_file:
-                if nb_line == 1:
-                    self.dating_str = (
-                        "independant "
-                        + str(float(row.split("= ")[1].split(" generation")[0]) * 25)
-                        + " years"
-                    )
-                    self.confidence_str = f"independant [{float(row.split('(')[1].split(')')[0].split(',')[0])*25},{float(row.split('(')[1].split(')')[0].split(',')[1])*25}] years"
+        if self.software_dating == "R_mutation":
+            with open(self.path_dating, "r") as dating_file:
+                nb_line = 0
+                for row in dating_file:
+                    if nb_line == 1:
+                        self.dating_str = (
+                            "independant "
+                            + str(
+                                float(row.split("= ")[1].split(" generation")[0]) * 25
+                            )
+                            + " years"
+                        )
+                        self.confidence_str = f"independant [{float(row.split('(')[1].split(')')[0].split(',')[0])*25},{float(row.split('(')[1].split(')')[0].split(',')[1])*25}] years"
 
-                if nb_line == 2:
-                    self.dating_str = (
-                        self.dating_str
-                        + " / correlated "
-                        + str(float(row.split("= ")[1].split(" generation")[0]) * 25)
-                        + " years"
-                    )
-                    self.confidence_str = f"{self.confidence_str} /correlated [{float(row.split('(')[1].split(')')[0].split(',')[0])*25},{float(row.split('(')[1].split(')')[0].split(',')[1])*25}] years"
-                nb_line = nb_line + 1
-        self.dating = [self.dating_str]
-        self.confidence = [self.confidence_str]
+                    if nb_line == 2:
+                        self.dating_str = (
+                            self.dating_str
+                            + " / correlated "
+                            + str(
+                                float(row.split("= ")[1].split(" generation")[0]) * 25
+                            )
+                            + " years"
+                        )
+                        self.confidence_str = f"{self.confidence_str} /correlated [{float(row.split('(')[1].split(')')[0].split(',')[0])*25},{float(row.split('(')[1].split(')')[0].split(',')[1])*25}] years"
+                    nb_line = nb_line + 1
+            self.dating = [self.dating_str]
+            self.confidence = [self.confidence_str]
+        elif self.software_dating == "Estimat":
+            print("hello")
+            run_dating = EasyDating()
+            self.dating = [run_dating.dating]
+            print(self.dating)
+            self.confidence = [run_dating.confidence]
 
         if self.roh_software == "plink":
             self.nb_roh_tot = [self.plink_hom.shape[0]]

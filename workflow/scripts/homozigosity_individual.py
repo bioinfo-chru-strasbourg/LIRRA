@@ -26,7 +26,7 @@ class HomozigosityIndividual:
             elif self.software == "hap-ibd":
                 self.path_homo_file = prime_service["path"]["hap-ibd_hbd"]
             self.plink_map = prime_service["path"]["plink_map"]
-        print(self.path_homo_file)
+        # print(self.path_homo_file)
 
     def coverage(self):
         chr_coverage = {}
