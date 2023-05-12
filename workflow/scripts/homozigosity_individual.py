@@ -101,12 +101,14 @@ class HomozigosityIndividual:
         # print(list(sample_length.keys()))
         # print(sample_length)
 
-        print(list(sample_length.values()))
+        # print(sample_length)
+        # print(self.length_pb_tot)
+
         self.df_homo = pd.DataFrame(
             {
                 "Sample ID": list(sample_length.keys()),
                 "% Homozigosity": [
-                    i / self.length_pb_tot for i in list(sample_length.values())
+                    (i / self.length_pb_tot) * 100 for i in list(sample_length.values())
                 ],
             }
         )

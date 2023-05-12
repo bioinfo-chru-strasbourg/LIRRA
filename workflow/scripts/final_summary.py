@@ -93,9 +93,8 @@ class OutputExcelSummary:
                         + str(float(row.split("= ")[1].split(" generation")[0]) * 25)
                         + " years"
                     )
-                    self.confidence_str = "independant " + str(
-                        row.split("(")[1].split(")")[0]
-                    )
+                    self.confidence_str = f"independant [{float(row.split('(')[1].split(')')[0].split(',')[0])*25},{float(row.split('(')[1].split(')')[0].split(',')[1])*25}] years"
+
                 if nb_line == 2:
                     self.dating_str = (
                         self.dating_str
@@ -103,11 +102,7 @@ class OutputExcelSummary:
                         + str(float(row.split("= ")[1].split(" generation")[0]) * 25)
                         + " years"
                     )
-                    self.confidence_str = (
-                        self.confidence_str
-                        + " / correlated "
-                        + str(row.split("(")[1].split(")")[0])
-                    )
+                    self.confidence_str = f"{self.confidence_str} /correlated [{float(row.split('(')[1].split(')')[0].split(',')[0])*25},{float(row.split('(')[1].split(')')[0].split(',')[1])*25}] years"
                 nb_line = nb_line + 1
         self.dating = [self.dating_str]
         self.confidence = [self.confidence_str]
