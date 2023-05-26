@@ -121,6 +121,7 @@ class InitConfig:
                 "hap-ibd_hbd_gz": self.path_user() + "/results/hap-ibd.hbd.gz",
                 "hap-ibd_hbd": self.path_user() + "/results/hap-ibd.hbd",
                 "db_snp": self.path_user() + "/resources/db_snp_info.vcf",
+                "db_snp_gz": self.path_user() + "/resources/db_snp_info.vcf.gz",
             },
         }
         with open(self.path_user() + "/config/config.yaml", "w") as configfile:

@@ -20,7 +20,14 @@ class CleanCheckRs:
             prime_service = yaml.safe_load(file)
             self.path_full_data_clean_dup = prime_service["path"]["data_clean_dup"]
             self.path_full_data_clean = prime_service["path"]["data_clean"]
-            self.db_snp_info = prime_service["path"]["db_snp"]
+            if not os.path.exists(prime_service["path"]["db_snp"]):
+                if not os.path.exists(prime_service["path"]["db_snp_gz"]):
+                    log.critical("Thanks DL data base SNP information from NCBI ")
+                else:
+                    os.system(f"gunzip {prime_service['path']['db_snp_gz']}")
+                    self.db_snp_info = prime_service["path"]["db_snp"]
+            else:
+                self.db_snp_info = prime_service["path"]["db_snp"]
             self.path_snp_data = prime_service["path"]["raw_data"]
 
     def run_bash(self):

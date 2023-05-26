@@ -39,6 +39,8 @@ path:
   vcf_unphased: /home1/BAS/hameaue/LIRRA/results/vcf_unphased.vcf
   data_clean_dup: /home1/BAS/hameaue/LIRRA/results/Full_data_clean_dup.tsv
   db_snp: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf
+  db_snp_gz: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf.gz
+
 
 puce_informations:
   location_centromeres:
