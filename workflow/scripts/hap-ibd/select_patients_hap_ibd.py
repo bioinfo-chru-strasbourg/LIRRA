@@ -74,18 +74,6 @@ class SelectPatients:
 
         self.iteration = self.iteration + 1
 
-    #     self.check_ROH_find(nb_line)
-
-    # def check_ROH_find(self, nb_lines):
-    #     if nb_lines < 2:
-    #         if self.iteration < 30:
-    #             if self.iteration == 0:
-    #                 log.info(
-    #                     "The default settings do not allow to retrieve all ROHs, use wider search parameters"
-    #                 )
-    #             os.system("python scripts/plink/wide_search_roh.py ")
-    #             self.find_patients()
-
     def side_centromere(self, dict_centromere: dict):
         bounds_right = int(str(dict_centromere[self.chr_var]).split("-")[1])
         bounds_left = int(str(dict_centromere[self.chr_var]).split("-")[0])

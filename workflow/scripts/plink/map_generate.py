@@ -14,7 +14,7 @@ class MapFile:
         self.generate_map()
 
     def search_cM_info(self, data):
-        df_cM_map = pl.read_csv(self.cM_map, sep="\t")
+        df_cM_map = pl.read_csv(self.cM_map, separator="\t")
         cM_target = {}
         cM_column = []
 
@@ -33,7 +33,9 @@ class MapFile:
 
     def generate_map(self):
         data = pl.read_csv(
-            self.file_input, sep="\t", dtypes={"Name": str, "Chr": str, "Position": int}
+            self.file_input,
+            separator="\t",
+            dtypes={"Name": str, "Chr": str, "Position": int},
         )
         cM_column = self.search_cM_info(data)
         output_dir = os.path.dirname(self.output)

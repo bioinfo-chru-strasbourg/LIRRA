@@ -104,6 +104,10 @@ class RunDocker:
                         )
                         exit()
 
+    __doc__ == """
+    All the commands needed to run the hap-ibd protocol can be found here, and different dockers are launched depending on the step in the rules.
+    """
+
 
 def main():
     parser = argparse.ArgumentParser()

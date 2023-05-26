@@ -58,16 +58,9 @@ class ExtractSamples:
                 dict_extract[group[row]] = samples
 
         if self.exist_snp_data:
-            # print("1 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
             if not self.check_snp_data_exist(dict_extract):
-                # print("2 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-
                 if self.exist_full_raw:
-                    # print("3 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-
                     if not self.check_full_data_exist(dict_extract):
-                        # print("4 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-
                         raise ValueError(
                             "Impossible de construire les donées car pas de snp_data.tsv ni de Full data qui contiennent les bonnes donées (checker le nom des samples soit les mêmes que dans le target)"
                         )
@@ -150,7 +143,6 @@ class ExtractSamples:
 
     def check_entry_excel_user(self):
         excel_user = pl.read_csv(self.excel_user_path, separator="\t")
-        # print(len(excel_user["Family(pedigree)"]))
         if excel_user.shape[0] == 0:
             log.critical(
                 f"You should please fill in the target_data.tsv file in the directory {self.excel_user_path}"
@@ -194,7 +186,6 @@ class ExtractSamples:
                         f"Check length for your column {item} ans he is not empty for any patients"
                     )
                 index = 1
-                # print(index)
                 for information in excel_user[str(item)].to_list():
                     if information == None:
                         empty_info_patient.append(dic_sample[index])
@@ -269,3 +260,7 @@ class ExtractSamples:
         os.system(
             f"snakemake -c{self.ncores} --use-conda --conda-frontend conda --directory {self.path_config}/../workflow/ -s {self.path_config}/../workflow/Snakefile"
         )
+
+    __doc__ = """
+    This class checks the contents of the snp_data.tsv data files, the available target_data.tsv file, initiates creation of the .fam file and launches the snakefile from the workflow folder. If the snp_data.tsv file doesn't contain all the patients in the target_data.tsv file, the script will try to recreate this file from the raw file. In general, this raw file contains more than the patients you're looking for. If the snp_data is not present and without the raw files, then snakemake will not be launched and an error will appear.
+    """

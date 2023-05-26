@@ -1,6 +1,10 @@
 import os
 import yaml
 
+"""
+This script is triggered only if 1 patient is found during the search for ROH containing the mutation. This script relaunches plink to find ROHs that are smaller and therefore difficult to detect with the previous arguments.
+"""
+
 
 def change_path(path_full):
     list_path = str(path_full).split("/")

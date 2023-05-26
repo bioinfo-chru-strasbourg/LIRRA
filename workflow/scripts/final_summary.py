@@ -262,6 +262,10 @@ class OutputExcelSummary:
             f"{self.path_summary}/custom_track.tsv", sep="\t", index=False
         )
 
+    __doc__ == """
+    Class in charge of creating all output documents.
+        """
+
 
 if __name__ == "__main__":
     OutputExcelSummary()

@@ -113,6 +113,10 @@ class HomozigosityIndividual:
             }
         )
 
+    __doc__ == """
+    Class in charge of calculating the homozygosity of each person found in the group. It uses the plink.hom or hap-ibd.hbd file and adds up all ROH greater than 2 centimorgan.
+    """
+
 
 if __name__ == "__main__":
     HomozigosityIndividual()

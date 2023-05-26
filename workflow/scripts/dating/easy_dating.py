@@ -60,6 +60,10 @@ class EasyDating:
             )
             self.confidence = ""
 
+    __doc__ == """
+    Formula taken from the supplementary doi = doi.org/10.1038/ng.204. It is used to estimate the occurrence of a haplotype shared by several people in the same group.
+    """
+
 
 if __name__ == "__main__":
     EasyDating()

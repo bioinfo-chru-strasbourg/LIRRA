@@ -22,9 +22,16 @@ class CleanCheckRs:
             self.path_full_data_clean = prime_service["path"]["data_clean"]
             if not os.path.exists(prime_service["path"]["db_snp"]):
                 if not os.path.exists(prime_service["path"]["db_snp_gz"]):
-                    log.critical("Thanks DL data base SNP information from NCBI ")
+                    log.critical("Thanks download data base SNP information from NCBI ")
                 else:
                     os.system(f"gunzip {prime_service['path']['db_snp_gz']}")
+                    os.system(
+                        f"grep -v '^##' {prime_service['path']['db_snp']} | cut -f1,2,3 > {prime_service['path']['db_snp']}_cut.vcf"
+                    )
+                    os.system(f"rm {prime_service['path']['db_snp']}")
+                    os.system(
+                        f"mv {prime_service['path']['db_snp']}_cut.vcf {prime_service['path']['db_snp']}"
+                    )
                     self.db_snp_info = prime_service["path"]["db_snp"]
             else:
                 self.db_snp_info = prime_service["path"]["db_snp"]
@@ -121,6 +128,10 @@ class CleanCheckRs:
         self.dict_db_snp_info = {}
         for row in self.db_snp.iter_rows(named=True):
             self.dict_db_snp_info[f"{row['#CHROM']}:{row['POS']}"] = row["ID"]
+
+    __doc__ == """
+    This class is responsible for removing duplicates in SNP chips by comparing them with an NCBI database.
+    """
 
 
 if __name__ == "__main__":
