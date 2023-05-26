@@ -23,7 +23,7 @@ def homozyg_run():
     --homozyg-window-threshold 0.05
     """
 
-    return "--homozyg-snp 50 --homozyg-kb 500 --homozyg-density 30 --homozyg-gap 5000 --homozyg-window-snp 25 --homozyg-window-het 1 --homozyg-window-missing 50  --homozyg-window-threshold 0.05"
+    return "--homozyg-snp 50 --homozyg-kb 500 --homozyg-density 30 --homozyg-gap 5000 --homozyg-window-snp 25 --homozyg-window-het 1 --homozyg-window-missing 5  --homozyg-window-threshold 0.05"
 
 
 if __name__ == "__main__":

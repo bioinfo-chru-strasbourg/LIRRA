@@ -15,7 +15,6 @@ class EasyDating:
         self.load_path()
         self.load_map()
         self.search_cM_length()
-        self.calcul()
 
     def load_path(self):
         with open(
@@ -52,12 +51,14 @@ class EasyDating:
             chr_interest = f"chr{str(list(set(df['column_4'].to_list()))).replace('[','').replace(']','')}"
             cM_start = self.dict_map[f"{chr_interest}:{start_roh_com}"]
             cM_end = self.dict_map[f"{chr_interest}:{end_roh_com}"]
-            print(df.shape[0])
-            self.dating = f"{(200 / ((float(cM_end) - float(cM_start)) * int(df.shape[0]))) * 25} years"
-            self.confidence = ""
+            print(df)
+            nb_id = 2 * (int(len(set(df["column_2"].to_list()))))
 
-    def calcul(self):
-        pass
+            print(f"{(200 / ((float(cM_end) - float(cM_start)) * nb_id)) * 25} years")
+            self.dating = (
+                f"{(200 / ((float(cM_end) - float(cM_start)) * (nb_id))) * 25} years"
+            )
+            self.confidence = ""
 
 
 if __name__ == "__main__":
