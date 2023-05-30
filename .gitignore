@@ -64,7 +64,7 @@ resources/global_map.map.gz
 resources/global_map.map
 
 #a faire à la fin
-__main__.py
+
 parseargs.py
 results/*
 
