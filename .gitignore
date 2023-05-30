@@ -54,7 +54,7 @@ coverage.xml
 workflow/.snakemake/
 
 #ignore data patients
-config/snp_data.csv
+config/snp_data.tsv
 config/list_puce_fam.fam
 config/snp_data_all.csv
 config/snp_data_cut.csv
@@ -72,3 +72,5 @@ config/list_puce_fam_BBS3.fam
 config/snp_data_BBS3.csv
 workflow/scripts/plink/Mutation_Age_estimation.R
 workflow/scripts/plink/final_summary.py
+config/target_data.tsv
+.tests_hap_ibd/

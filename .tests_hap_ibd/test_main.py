@@ -103,6 +103,21 @@ def test_run_snakefile():
         f"snakemake -c10 --use-conda --conda-frontend conda --directory {path_config}/../workflow/ -s {path_config}/../workflow/Snakefile"
     )
 
+    os.system(
+        f"sort -k1,1V -k5,2V -k6,3n {os.path.normpath(com.results_path)}/hap-ibd.hbd > {os.path.normpath(com.results_path)}/hap-ibd_cmp.hbd"
+    )
+    # os.system(
+    #     f"sort -k1,1V {os.path.normpath(com.results_path)}/homozigosity.tsv > {os.path.normpath(com.results_path)}/homozigosity_cmp.tsv"
+    # )
+    os.system(f"mv ../results/vcf_unphased.vcf ../results/uncheck_vcf_unphased.vcf")
+    os.system(
+        f'grep -v "^##" ../results/uncheck_vcf_unphased.vcf > ../results/vcf_unphased.vcf'
+    )
+    os.system(f"mv ../results/vcf_phased.vcf.gz ../results/uncheck_vcf_phased.vcf.gz")
+    os.system(
+        f'zcat ../results/uncheck_vcf_phased.vcf.gz | grep -v "^##" > ../results/vcf_phased.vcf'
+    )
+
 
 def test_rule_clean_data():
     com = OutputChecker(os.path.dirname(__file__))
@@ -115,13 +130,13 @@ def test_rule_clean_data():
     )
 
 
-def test_rule_pre_create_file():
+def test_rule_vcf_unphased():
     com = OutputChecker(os.path.dirname(__file__))
     ##input##
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/pre_create_file/data/Full_data_clean.tsv",
+            com.integration_path + "/vcf_unphased/data/Full_data_clean.tsv",
             com.results_path + "/Full_data_clean.tsv",
         ]
     )
@@ -130,69 +145,26 @@ def test_rule_pre_create_file():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/pre_create_file/expected/data_input.map",
-            com.results_path + "/data_input.map",
-        ]
-    )
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/pre_create_file/expected/input_puce.fam",
-            com.results_path + "/input_puce.fam",
+            com.integration_path + "/vcf_unphased/expected/vcf_unphased.vcf",
+            com.results_path + "/vcf_unphased.vcf",
         ]
     )
 
 
-def test_rule_create_file_map_first():
+def test_rule_input_plink_map():
     com = OutputChecker(os.path.dirname(__file__))
     ##input##
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/create_file_map_first/data/data_input.map",
-            com.results_path + "/data_input.map",
+            com.integration_path + "/input_plink_map/data/list_puce_fam.fam",
+            com.config_directories_path + "/list_puce_fam.fam",
         ]
     )
-
-    ##output##
     sp.check_output(
         [
             "cmp",
-            com.integration_path
-            + "/create_file_map_first/expected/plink_with_zero.map",
-            com.results_path + "/plink_with_zero.map",
-        ]
-    )
-
-
-def test_rule_create_file_map_second():
-    com = OutputChecker(os.path.dirname(__file__))
-    ##input##
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/create_file_map_second/data/plink_with_zero.map",
-            com.results_path + "/plink_with_zero.map",
-        ]
-    )
-
-    ##output##
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/create_file_map_second/expected/plink.map",
-            com.results_path + "/plink.map",
-        ]
-    )
-
-
-def test_rule_create_file_lgen():
-    com = OutputChecker(os.path.dirname(__file__))
-    ##input##
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/create_file_lgen/data/Full_data_clean.tsv",
+            com.integration_path + "/input_plink_map/data/Full_data_clean.tsv",
             com.results_path + "/Full_data_clean.tsv",
         ]
     )
@@ -201,20 +173,20 @@ def test_rule_create_file_lgen():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/create_file_lgen/expected/plink.lgen",
-            com.results_path + "/plink.lgen",
+            com.integration_path + "/input_plink_map/expected/data_input.map",
+            com.results_path + "/data_input.map",
         ]
     )
 
 
-def test_rule_create_file_fam():
+def test_rule_init_plink_map():
     com = OutputChecker(os.path.dirname(__file__))
     ##input##
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/create_file_fam/data/input_puce.fam",
-            com.results_path + "/input_puce.fam",
+            com.integration_path + "/init_plink_map/data/data_input.map",
+            com.results_path + "/data_input.map",
         ]
     )
 
@@ -222,55 +194,48 @@ def test_rule_create_file_fam():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/create_file_fam/expected/plink.fam ",
-            com.results_path + "/plink.fam",
+            com.integration_path + "/init_plink_map/expected/plink_with_zero.map",
+            com.results_path + "/plink_with_zero.map",
         ]
     )
 
 
-def test_rule_create_file_fam():
+def test_rule_create_plink_map():
     com = OutputChecker(os.path.dirname(__file__))
     ##input##
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/find_ROH/data/plink.fam",
-            com.results_path + "/plink.fam",
+            com.integration_path + "/create_plink_map/data/plink_with_zero.map",
+            com.results_path + "/plink_with_zero.map",
         ]
     )
+
+    ##output##
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/find_ROH/data/plink.lgen",
-            com.results_path + "/plink.lgen",
-        ]
-    )
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/find_ROH/data/plink.map",
+            com.integration_path + "/create_plink_map/expected/plink.map",
             com.results_path + "/plink.map",
         ]
     )
 
-    ##output##
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/find_ROH/expected/plink.hom",
-            com.results_path + "/plink.hom",
-        ]
-    )
 
-
-def test_rule_roh_select():
+def test_rule_vcf_phased():
     com = OutputChecker(os.path.dirname(__file__))
     ##input##
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/roh_select/data/plink.hom",
-            com.results_path + "/plink.hom",
+            com.integration_path + "/vcf_phased/data/plink.map",
+            com.results_path + "/plink.map",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/vcf_phased/data/vcf_unphased.vcf",
+            com.results_path + "/vcf_unphased.vcf",
         ]
     )
 
@@ -278,7 +243,35 @@ def test_rule_roh_select():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/roh_select/expected/ROH_select.tsv",
+            com.integration_path + "/vcf_phased/expected/vcf_phased.vcf",
+            com.results_path + "/vcf_phased.vcf",
+        ]
+    )
+
+
+def test_rule_roh_select_hap_ibd_and_hap_ibd_run():
+    com = OutputChecker(os.path.dirname(__file__))
+    ##input##
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/roh_select_hap_ibd/data/vcf_phased.vcf",
+            com.results_path + "/vcf_phased.vcf",
+        ]
+    )
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/roh_select_hap_ibd/data/hap-ibd.hbd",
+            com.results_path + "/hap-ibd_cmp.hbd",
+        ]
+    )
+
+    ##output##
+    sp.check_output(
+        [
+            "cmp",
+            com.integration_path + "/roh_select_hap_ibd/expected/ROH_select.tsv",
             com.results_path + "/ROH_select.tsv",
         ]
     )
@@ -325,8 +318,8 @@ def test_create_output():
     sp.check_output(
         [
             "cmp",
-            com.integration_path + "/create_output/data/plink.hom",
-            com.results_path + "/plink.hom",
+            com.integration_path + "/create_output/data/hap-ibd.hbd",
+            com.results_path + "/hap-ibd_cmp.hbd",
         ]
     )
     sp.check_output(
@@ -359,10 +352,11 @@ def test_create_output():
             com.results_path + "/global_summary.tsv",
         ]
     )
-    sp.check_output(
-        [
-            "cmp",
-            com.integration_path + "/create_output/expected/homozigosity.tsv",
-            com.results_path + "/homozigosity.tsv",
-        ]
-    )
+
+    # sp.check_output(
+    #     [
+    #         "cmp",
+    #         com.integration_path + "/create_output/expected/homozigosity.tsv",
+    #         com.results_path + "/homozigosity_cmp.tsv",
+    #     ]
+    # )

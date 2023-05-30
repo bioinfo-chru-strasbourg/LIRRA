@@ -1,33 +1,14 @@
-# from time import time
-# import sys
-# import os
-# import multiprocessing as mp
-
-print("hello")
-
 include: "rules/pre_proced.smk"
-# print(os.getcwd())
-
-##pre procedure different selon la config que l'on va séléctionner
-# rule clean_data:
-#     input: "scripts/test.sh"
-#     # output:
-#     shell: "{input}"
-# rule clean_data:
-#     input: "scripts/test.sh"
-#     output: "scripts/test.txt"
-#     shell: "{input}"
-# rule clean_data:
-    # output:
-    #     "../results/Full_data_clean.csv",
 
 rule all:
     input:
-        # "../results/plink.hom",
-        config["path"]["final_summary"]    # shell: 
-    #     "bash scripts/clean_data.sh"
+        # config["path"]["hap-ibd_hbd"]
+        config["path"]["excel_output"],     
+        config["path"]["custom_track"] ,    
+        config["path"]["global_summary"] ,    
+        config["path"]["full_results"] ,    
 
 
-include : "rules/summary_results.smk"
-include: "rules/plink_proced.smk"
+include: "rules/proced.smk"
 include: "rules/dating_proced.smk"
+include: "rules/summary_results.smk"

@@ -22,39 +22,72 @@ class ConvertBpToCM:
             self.chr_interest = str(
                 prime_service["variant_informations"]["location_variant"]
             ).split(":")[0]
+            self.roh_software = prime_service["params"]["ROH_detect_software"]
             return str(prime_service["variant_informations"]["location_variant"])
 
     def find_bp_arms(self):
         roh_select = pl.read_csv(
             os.path.join(
-                os.path.dirname(__file__), "..", "..", "..", "results", "ROH_select.txt"
+                os.path.dirname(__file__), "..", "..", "..", "results", "ROH_select.tsv"
             ),
-            sep="\t",
+            separator="\t",
             has_header=False,
         )
         self.dico_sample_pos = {}
-        self.left_arms_bp = roh_select["column_7"].to_list()
-        self.right_arms_bp = roh_select["column_8"].to_list()
-        self.id_roh = roh_select["column_2"].to_list()
-        i = 0
-        for row in roh_select.iter_rows(named=True):
-            if self.dico_sample_pos.get(row["column_2"], "NA") == "NA":
-                self.dico_sample_pos[row["column_2"]] = (
-                    str(self.left_arms_bp[i]) + ":" + str(self.right_arms_bp[i])
-                )
+        if self.roh_software == "plink":
+            self.left_arms_bp = roh_select["column_7"].to_list()
+            self.right_arms_bp = roh_select["column_8"].to_list()
+            self.id_roh = roh_select["column_2"].to_list()
+            i = 0
+            for row in roh_select.iter_rows(named=True):
+                # print(self.dico_sample_pos)
+                if self.dico_sample_pos.get(row["column_2"], "NA") == "NA":
+                    self.dico_sample_pos[row["column_2"]] = (
+                        str(self.left_arms_bp[i]) + ":" + str(self.right_arms_bp[i])
+                    )
 
-            else:
-                pos1 = self.dico_sample_pos[row["column_2"]].split(":")[0]
-                pos2 = self.dico_sample_pos[row["column_2"]].split(":")[1]
-                if int(pos1) > int(self.left_arms_bp[i]):
-                    self.dico_sample_pos[row["column_2"]] = (
-                        str(self.left_arms_bp[i]) + ":" + pos2
+                else:
+                    pos1 = self.dico_sample_pos[row["column_2"]].split(":")[0]
+                    pos2 = self.dico_sample_pos[row["column_2"]].split(":")[1]
+                    print(row)
+                    if int(pos1) > int(self.left_arms_bp[i]):
+                        self.dico_sample_pos[row["column_2"]] = (
+                            str(self.left_arms_bp[i]) + ":" + pos2
+                        )
+                    elif int(pos2) < int(self.right_arms_bp[i]):
+                        self.dico_sample_pos[row["column_2"]] = (
+                            pos1 + ":" + str(self.right_arms_bp[i])
+                        )
+                i = i + 1
+        elif self.roh_software == "hap-ibd":
+            self.left_arms_bp = roh_select["column_6"].to_list()
+            self.right_arms_bp = roh_select["column_7"].to_list()
+            self.id_roh = roh_select["column_3"].to_list()
+            print(self.left_arms_bp)
+            print(self.right_arms_bp)
+            print(self.id_roh)
+
+            i = 0
+            for row in roh_select.iter_rows(named=True):
+                if self.dico_sample_pos.get(row["column_3"], "NA") == "NA":
+                    self.dico_sample_pos[row["column_3"]] = (
+                        str(self.left_arms_bp[i]) + ":" + str(self.right_arms_bp[i])
                     )
-                elif int(pos2) < int(self.right_arms_bp[i]):
-                    self.dico_sample_pos[row["column_2"]] = (
-                        pos1 + ":" + str(self.right_arms_bp[i])
-                    )
-            i = i + 1
+
+                else:
+                    pos1 = self.dico_sample_pos[row["column_3"]].split(":")[0]
+                    pos2 = self.dico_sample_pos[row["column_3"]].split(":")[1]
+                    # print(row)
+                    if int(pos1) > int(self.left_arms_bp[i]):
+                        self.dico_sample_pos[row["column_3"]] = (
+                            str(self.left_arms_bp[i]) + ":" + pos2
+                        )
+                    elif int(pos2) < int(self.right_arms_bp[i]):
+                        self.dico_sample_pos[row["column_3"]] = (
+                            pos1 + ":" + str(self.right_arms_bp[i])
+                        )
+                i = i + 1
+            print(self.dico_sample_pos)
 
     def closest(self, lst: list, target_value: int):
         return lst[min(range(len(lst)), key=lambda i: abs(lst[i] - target_value))]
@@ -65,18 +98,23 @@ class ConvertBpToCM:
                 os.path.dirname(__file__), "..", "..", "..", "results", "plink.map"
             ),
             has_header=False,
-            sep="\t",
+            separator="\t",
         )
         dico_closest_sample_cM = {}
         self.list_bp_chrinterest = []
         list_cM_chrinterest = []
-
         for row in plink_data.iter_rows(named=True):
-            if "chr" + str(row["column_1"]) == self.chr_interest:
-                self.list_bp_chrinterest.append(int(row["column_4"]))
-                list_cM_chrinterest.append(row["column_3"])
+            if str(row["column_1"]).startswith("chr"):
+                if str(row["column_1"]) == self.chr_interest:
+                    self.list_bp_chrinterest.append(int(row["column_4"]))
+                    list_cM_chrinterest.append(row["column_3"])
+            else:
+                if "chr" + str(row["column_1"]) == self.chr_interest:
+                    self.list_bp_chrinterest.append(int(row["column_4"]))
+                    list_cM_chrinterest.append(row["column_3"])
 
         for sample in self.dico_sample_pos:
+            print(self.dico_sample_pos)
             pos1 = self.dico_sample_pos[sample].split(":")[0]
             pos2 = self.dico_sample_pos[sample].split(":")[1]
             dico_closest_sample_cM[sample] = (
