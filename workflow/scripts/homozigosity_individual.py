@@ -26,29 +26,46 @@ class HomozigosityIndividual:
             elif self.software == "hap-ibd":
                 self.path_homo_file = prime_service["path"]["hap-ibd_hbd"]
             self.plink_map = prime_service["path"]["plink_map"]
+            self.analysis_mode = prime_service["params"]["analysis_output"]
+            self.path_bed = prime_service["path"]["bed_file"]
         # print(self.path_homo_file)
 
     def coverage(self):
-        chr_coverage = {}
-        lenght_tot = 0
-        map = pl.read_csv(self.plink_map, has_header=False)
-        for row in map["column_1"]:
-            row_ash = str(row).split()
-            if row_ash[0] != "chrX":
-                # print(row_ash)
-                if chr_coverage.get(row_ash[0], False) == False:
-                    chr_coverage[row_ash[0]] = [int(row_ash[3])]
-                    # print(chr_coverage)
-                elif chr_coverage.get(row_ash[0], False) != False:
-                    # print("lolo")
-                    # print(type((row_ash[3])))
-                    chr_coverage[row_ash[0]].append(int(row_ash[3]))
-        for item in chr_coverage:
-            bp = list(chr_coverage[str(item)])
-            lenght_tot = lenght_tot + (max(bp) - min(bp))
+        if not self.analysis_mode == "homozigosity":
+            chr_coverage = {}
+            lenght_tot = 0
+            map = pl.read_csv(self.plink_map, has_header=False)
+            for row in map["column_1"]:
+                row_ash = str(row).split()
+                if row_ash[0] != "chrX":
+                    # print(row_ash)
+                    if chr_coverage.get(row_ash[0], False) == False:
+                        chr_coverage[row_ash[0]] = [int(row_ash[3])]
+                        # print(chr_coverage)
+                    elif chr_coverage.get(row_ash[0], False) != False:
+                        # print("lolo")
+                        # print(type((row_ash[3])))
+                        chr_coverage[row_ash[0]].append(int(row_ash[3]))
+            for item in chr_coverage:
+                bp = list(chr_coverage[str(item)])
+                lenght_tot = lenght_tot + (max(bp) - min(bp))
 
-        return lenght_tot
-        # print(list(chr_coverage.values())
+            return lenght_tot
+
+        elif self.analysis_mode == "homozigosity":
+            lenght_tot = 0
+            bed = pl.read_csv(
+                self.path_bed,
+                sep="\t",
+                has_header=False,
+                dtypes={"column_1": str, "column_2": int, "column_3": int},
+            )
+            print(bed)
+            for row in bed.iter_rows(named=True):
+                # print(row["column_3"] - row["column_2"])
+                lenght_tot = lenght_tot + (row["column_3"] - row["column_2"])
+            return lenght_tot
+        # TODO : a revoir car le total de ROH est inférieur à la taille
 
     def prepare_file(self):
         self.hbd_work = []
@@ -78,7 +95,6 @@ class HomozigosityIndividual:
     def check_length(self, int_software):
         for i in self.hbd_work:
             if int(len(i)) != int_software:
-                print(i)
                 log.critical(
                     f"They are a problem with lenght of {i} he could be {int_software}"
                 )
@@ -98,12 +114,6 @@ class HomozigosityIndividual:
             else:
                 pass
 
-        # print(list(sample_length.keys()))
-        # print(sample_length)
-
-        # print(sample_length)
-        # print(self.length_pb_tot)
-
         self.df_homo = pd.DataFrame(
             {
                 "Sample ID": list(sample_length.keys()),
@@ -112,6 +122,15 @@ class HomozigosityIndividual:
                 ],
             }
         )
+        if self.analysis_mode == "homozigosity":
+            self.path_summary = os.path.join(
+                os.path.dirname(__file__), "..", "..", "results"
+            )
+            self.df_homo.to_csv(
+                f"{self.path_summary}/homozigosity.tsv",
+                index=False,
+                sep="\t",
+            )
 
     __doc__ == """
     Class in charge of calculating the homozygosity of each person found in the group. It uses the plink.hom or hap-ibd.hbd file and adds up all ROH greater than 2 centimorgan.

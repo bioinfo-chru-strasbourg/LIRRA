@@ -51,6 +51,7 @@ class SelectPatients:
                 # print(row)
                 pos1 = int(row[6])
                 pos2 = int(row[7])
+                print(row)
                 # if self.ignore_centromere == True:
                 if pos1 <= self.bp_var and pos2 >= self.bp_var:
                     self.lines.append(row)

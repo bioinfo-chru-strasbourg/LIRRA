@@ -1,14 +1,15 @@
 params:
   Analysis_mode: by_gene
-  Data_input: snp
+  Data_input: SNP
   ROH_detect_software: plink
   confidence_coefficient: 0.95
-  correction_dating: 'false'
+  correction_dating: 'False'
   dating_software: R_mutation
-  ignore_centromere: 'true'
+  ignore_centromere: 'True'
   n_cores: 6
   ram: 35
   variant_frequency: 2.22e-06
+  analysis_output: founder_effect
 path:
   ROH_select: /home1/BAS/hameaue/LIRRA/results/ROH_select.tsv
   config: /home1/BAS/hameaue/LIRRA/config/config.yaml
@@ -40,6 +41,11 @@ path:
   data_clean_dup: /home1/BAS/hameaue/LIRRA/results/Full_data_clean_dup.tsv
   db_snp: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf
   db_snp_gz: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf.gz
+  raw_data_vcf: /home1/BAS/hameaue/LIRRA/config/vcf_data.vcf.gz
+  homozigosity: /home1/BAS/hameaue/LIRRA/results/homozigosity.tsv
+  bed_file: /home1/BAS/hameaue/LIRRA/config/vcf_information.bed
+
+
 
 
 puce_informations:

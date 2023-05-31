@@ -60,6 +60,7 @@ class InitConfig:
                 "Data_input": self.args.Data_input,
                 "Analysis_mode": self.args.Analysis_mode,
                 "ram": self.args.ram,
+                "analysis_output": self.args.Analysis_output,
             },
             "variant_informations": {"location_variant": self.args.location},
             "puce_informations": {
@@ -109,6 +110,8 @@ class InitConfig:
                 "schema_samples": self.path_user()
                 + "/workflow/schemas/samples.schema.yaml",
                 "raw_data": self.path_user() + "/config/snp_data.tsv",
+                "raw_data_vcf": self.path_user() + "/config/vcf_data.vcf.gz",
+                "bed_file": self.path_user() + "/config/vcf_information.bed",
                 "raw_list": self.path_user()
                 + "/workflow/schemas/list_puce_fam.schema.yaml",
                 "excel_output": self.path_user() + "/results/summary.xlsx",
@@ -122,9 +125,16 @@ class InitConfig:
                 "hap-ibd_hbd": self.path_user() + "/results/hap-ibd.hbd",
                 "db_snp": self.path_user() + "/resources/db_snp_info.vcf",
                 "db_snp_gz": self.path_user() + "/resources/db_snp_info.vcf.gz",
+                "homozigosity": self.path_user() + "/results/homozigosity.tsv",
             },
         }
         with open(self.path_user() + "/config/config.yaml", "w") as configfile:
             yaml.dump(dict_config, configfile, sort_keys=True)
+        if self.args.Analysis_output == "founder_effect":
+            ExtractSamples(int(self.args.ncores))
 
-        ExtractSamples(int(self.args.ncores))
+        elif self.args.Analysis_output == "homozigosity":
+            self.path_config = os.path.join(os.path.dirname(__file__), "..", "config")
+            os.system(
+                f"snakemake -c{self.args.ncores} --use-conda --conda-frontend conda --directory {self.path_config}/../workflow/ -s {self.path_config}/../workflow/Snakefile"
+            )

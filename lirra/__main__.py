@@ -20,6 +20,7 @@ def main():
         "--ROH_software",
         type=str,
         required=True,
+        choices=("plink", "hap-ibd"),
         help='Choose which software you want to find ROHs ["plink" or "hap-ibd"]',
     )
     # print(args.ROH_software)
@@ -27,8 +28,10 @@ def main():
         "-Ds",
         "--Dating_software",
         type=str,
-        required=True,
-        help='Choose which software you want to dating variants ["R_mutation" or "GEVA"]',
+        required=False,
+        default="R_mutation",
+        choices=("R_mutation", "Estimat"),
+        help='Choose which software you want to dating variants ["R_mutation" or "Estimat"]',
     )
 
     parser.add_argument(
@@ -53,7 +56,8 @@ def main():
         "--Data_input",
         type=str,
         required=True,
-        help='Which type are your data ["WES" or "SNP"]',
+        choices=("VCF", "SNP"),
+        help='Which type are your data ["VCF" or "SNP"]',
     )
 
     parser.add_argument(
@@ -104,7 +108,18 @@ def main():
         type=str,
         required=False,
         default="by_gene",
+        choices=("by_gene", "All"),
         help="You can change the analysis to detect ROH based on a specific location in the genome [by_gene, All]",
+    )
+
+    parser.add_argument(
+        "--Analysis_output",
+        "-Ao",
+        type=str,
+        required=False,
+        default="founder_effect",
+        choices=("founder_effect", "homozigosity"),
+        help="You can change the analysis to detect ROH based on a specific location in the genome [founder_effect, homozigosity]",
     )
     # TODO : For select if you want a list of genes or just ROH include variant, upgrade for change required of location into False
 
