@@ -22,7 +22,7 @@ class CleanCheckRs:
             self.path_full_data_clean = prime_service["path"]["data_clean"]
             if not os.path.exists(prime_service["path"]["db_snp"]):
                 if not os.path.exists(prime_service["path"]["db_snp_gz"]):
-                    log.critical("Thanks download data base SNP information from NCBI ")
+                    log.critical("Thanks download data base SNP information from NCBI and put in in resources directory")
                 else:
                     os.system(f"gunzip {prime_service['path']['db_snp_gz']}")
                     os.system(
@@ -136,3 +136,4 @@ class CleanCheckRs:
 
 if __name__ == "__main__":
     CleanCheckRs()
+    

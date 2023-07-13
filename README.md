@@ -26,7 +26,7 @@ To start the pipeline, first fill in the target_data.tsv file found in the confi
 
 Then you can run lirra for example :
 ```
-lirra -ROHs plink -Ds R_mutation -Ic True -Di snp -vf 2.22e-6 -l chr2:170338824 -r 35
+lirra -ROHs plink -Ds R_mutation -Ic True -Di SNP -vf 2.22e-6 -l chr2:170338824 -r 35
 ```
 Here I choose to use the plink application and date the founder effect with R_mutation, ignore the centromere, my input data is snp, the frequency of my variant is 2.22e-6, located on chromosome 2 at position 170338824 and allocate 35 GB RAM to LIRRA. 
 
