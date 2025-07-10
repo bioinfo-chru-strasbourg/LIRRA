@@ -10,7 +10,7 @@ LIRRA was developed by [EliseVerin](https://github.com/EliseVerin/).
 
 ## Installation
 
-1) Setup an environment with Python >= 3.10
+1) Setup an environment with docker, snakemake and Python >= 3.10
 2) Do the following commands:
 
 ```bash
