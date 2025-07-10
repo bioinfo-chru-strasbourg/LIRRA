@@ -1,45 +1,51 @@
 params:
   Analysis_mode: by_gene
-  Data_input: snp
+  Data_input: SNP
   ROH_detect_software: plink
   confidence_coefficient: 0.95
-  correction_dating: 'false'
+  correction_dating: 'False'
   dating_software: R_mutation
-  ignore_centromere: 'true'
+  ignore_centromere: 'True'
   n_cores: 6
   ram: 35
   variant_frequency: 2.22e-06
+  analysis_output: founder_effect
 path:
-  ROH_select: /home1/BAS/hameaue/LIRRA/results/ROH_select.tsv
-  config: /home1/BAS/hameaue/LIRRA/config/config.yaml
-  custom_track: /home1/BAS/hameaue/LIRRA/results/custom_track.tsv
-  data_clean: /home1/BAS/hameaue/LIRRA/results/Full_data_clean.tsv
-  envs_R: /home1/BAS/hameaue/LIRRA/workflow/envs/R_env.yml
-  excel_output: /home1/BAS/hameaue/LIRRA/results/summary.xlsx
-  fasta_genome: /home1/BAS/hameaue/LIRRA/resources/hg19.fa
-  final_dating: /home1/BAS/hameaue/LIRRA/results/dating.txt
-  full_results: /home1/BAS/hameaue/LIRRA/results/full_results.tsv
-  global_summary: /home1/BAS/hameaue/LIRRA/results/global_summary.tsv
-  hap-ibd_hbd: /home1/BAS/hameaue/LIRRA/results/hap-ibd.hbd
-  hap-ibd_hbd_gz: /home1/BAS/hameaue/LIRRA/results/hap-ibd.hbd.gz
-  input_fam: /home1/BAS/hameaue/LIRRA/results/input_puce.fam
-  input_map: /home1/BAS/hameaue/LIRRA/results/data_input.map
-  list_puce_fam: /home1/BAS/hameaue/LIRRA/config/list_puce_fam.fam
-  plink_fam: /home1/BAS/hameaue/LIRRA/results/plink.fam
-  plink_hom: /home1/BAS/hameaue/LIRRA/results/plink.hom
-  plink_lgen: /home1/BAS/hameaue/LIRRA/results/plink.lgen
-  plink_map: /home1/BAS/hameaue/LIRRA/results/plink.map
-  plink_zero: /home1/BAS/hameaue/LIRRA/results/plink_with_zero.map
-  raw_data: /home1/BAS/hameaue/LIRRA/config/snp_data.tsv
-  raw_list: /home1/BAS/hameaue/LIRRA/workflow/schemas/list_puce_fam.schema.yaml
-  report: /home1/BAS/hameaue/LIRRA/workflow/report/workflow.rst
-  schema_config: /home1/BAS/hameaue/LIRRA/workflow/schemas/config.schema.yaml
-  schema_samples: /home1/BAS/hameaue/LIRRA/workflow/schemas/samples.schema.yaml
-  vcf_phased: /home1/BAS/hameaue/LIRRA/results/vcf_phased.vcf.gz
-  vcf_unphased: /home1/BAS/hameaue/LIRRA/results/vcf_unphased.vcf
-  data_clean_dup: /home1/BAS/hameaue/LIRRA/results/Full_data_clean_dup.tsv
-  db_snp: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf
-  db_snp_gz: /home1/BAS/hameaue/LIRRA/resources/db_snp_info.vcf.gz
+  ROH_select: /home1/HUB/bin/lirra/lirra/results/ROH_select.tsv
+  config: /home1/HUB/bin/lirra/lirra/config/config.yaml
+  custom_track: /home1/HUB/bin/lirra/lirra/results/custom_track.tsv
+  data_clean: /home1/HUB/bin/lirra/lirra/results/Full_data_clean.tsv
+  envs_R: /home1/HUB/bin/lirra/lirra/workflow/envs/R_env.yml
+  excel_output: /home1/HUB/bin/lirra/lirra/results/summary.xlsx
+  fasta_genome: /home1/HUB/bin/lirra/lirra/resources/hg19.fa
+  final_dating: /home1/HUB/bin/lirra/lirra/results/dating.txt
+  full_results: /home1/HUB/bin/lirra/lirra/results/full_results.tsv
+  global_summary: /home1/HUB/bin/lirra/lirra/results/global_summary.tsv
+  hap-ibd_hbd: /home1/HUB/bin/lirra/lirra/results/hap-ibd.hbd
+  hap-ibd_hbd_gz: /home1/HUB/bin/lirra/lirra/results/hap-ibd.hbd.gz
+  input_fam: /home1/HUB/bin/lirra/lirra/results/input_puce.fam
+  input_map: /home1/HUB/bin/lirra/lirra/results/data_input.map
+  list_puce_fam: /home1/HUB/bin/lirra/lirra/config/list_puce_fam.fam
+  plink_fam: /home1/HUB/bin/lirra/lirra/results/plink.fam
+  plink_hom: /home1/HUB/bin/lirra/lirra/results/plink.hom
+  plink_lgen: /home1/HUB/bin/lirra/lirra/results/plink.lgen
+  plink_map: /home1/HUB/bin/lirra/lirra/results/plink.map
+  plink_zero: /home1/HUB/bin/lirra/lirra/results/plink_with_zero.map
+  raw_data: /home1/HUB/bin/lirra/lirra/config/snp_data.tsv
+  raw_list: /home1/HUB/bin/lirra/lirra/workflow/schemas/list_puce_fam.schema.yaml
+  report: /home1/HUB/bin/lirra/lirra/workflow/report/workflow.rst
+  schema_config: /home1/HUB/bin/lirra/lirra/workflow/schemas/config.schema.yaml
+  schema_samples: /home1/HUB/bin/lirra/lirra/workflow/schemas/samples.schema.yaml
+  vcf_phased: /home1/HUB/bin/lirra/lirra/results/vcf_phased.vcf.gz
+  vcf_unphased: /home1/HUB/bin/lirra/lirra/results/vcf_unphased.vcf
+  data_clean_dup: /home1/HUB/bin/lirra/lirra/results/Full_data_clean_dup.tsv
+  db_snp: /home1/HUB/bin/lirra/lirra/resources/db_snp_info.vcf
+  db_snp_gz: /home1/HUB/bin/lirra/lirra/resources/db_snp_info.vcf.gz
+  raw_data_vcf: /home1/HUB/bin/lirra/lirra/config/vcf_data.vcf.gz
+  homozigosity: /home1/HUB/bin/lirra/lirra/results/homozigosity.tsv
+  bed_file: /home1/HUB/bin/lirra/lirra/config/vcf_information.bed
+
+
 
 
 puce_informations:
@@ -61,7 +67,7 @@ puce_informations:
     chr22: 11500000-16000000
     chr3: 90439303-93641533
     chr4: 49000000-52000000
-    chr5: 46000000 -49500000
+    chr5: 46000000-49500000
     chr6: 58500000-62500000
     chr7: 57500000-62500000
     chr8: 42500000-48000000

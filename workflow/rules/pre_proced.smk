@@ -21,16 +21,18 @@ configfile: "../config/config.yaml"
 validate(config, schema= config["path"]["schema_config"])
 
 # print("4")
+if config["params"]["Data_input"] == "SNP":
+    samples = pd.read_csv(config["path"]["raw_data"], sep="\t")
+    # # print(samples)
+    # #pas sur que ça va marcher
+    validate(samples, schema=config["path"]["schema_samples"])
 
-samples = pd.read_csv(config["path"]["raw_data"], sep="\t")
-# # print(samples)
-# #pas sur que ça va marcher
-validate(samples, schema=config["path"]["schema_samples"])
+    list_puce_fam=pd.read_csv(config["path"]["list_puce_fam"], sep="\t")
+    # print(list_puce_fam)
+    validate(list_puce_fam, schema=config["path"]["raw_list"])
 
-list_puce_fam=pd.read_csv(config["path"]["list_puce_fam"], sep="\t")
-# print(list_puce_fam)
-validate(list_puce_fam, schema=config["path"]["raw_list"])
-
+elif config["params"]["Data_input"] == "VCF":
+    pass
 
 ####Helper Function####
 

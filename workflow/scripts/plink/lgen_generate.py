@@ -101,7 +101,22 @@ class LgenFile:
                 self.all1_data.append(0)
                 self.all2_data.append(0)
             else:
-                self.all1_data.append(gt_data[0])
+                try:
+                    self.all1_data.append(gt_data[0])
+                except TypeError as e:
+                    self.temporary_data.to_csv(
+                        "/home1/HUB/bin/data/lirra_tmp_data.tsv",
+                        sep="\t",
+                        index=True,
+                        na_rep="NA_debug",
+                    )
+                    print(
+                        "Column names of temporary_data:", self.temporary_data.columns
+                    )
+                    print("gt_data", gt_data)
+                    print("y", y)
+                    print("x", x)
+                    raise e
                 self.all2_data.append(gt_data[1])
 
     def create_file_lgen(self):
