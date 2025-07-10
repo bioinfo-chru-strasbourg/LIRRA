@@ -77,6 +77,11 @@ def recode_run():
 
 if __name__ == "__main__":
     path_full = os.path.join(os.path.dirname(__file__))
+    for root, dirs, files in os.walk(change_path_results(path_full)):
+        for dir in dirs:
+            os.chmod(os.path.join(root, dir), 0o777)
+        for file in files:
+            os.chmod(os.path.join(root, file), 0o777)
     os.system(
         f"docker run --rm -v {change_path_results(path_full)}:/data:rw plink:1.9 plink1.9 --noweb {recode_run()} --recode"
     )
