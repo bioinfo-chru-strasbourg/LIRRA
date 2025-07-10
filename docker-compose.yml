@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  lirra-dev:
+    build:
+      context: .
+    stdin_open: true
+    tty: true
+    command: bash
+    volumes:
+      - /home1/HUB/bin:/home1/HUB/bin
+      - /home1/L_PROD/NGS:/home1/L_PROD/NGS
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - bug_prevention_network
+
+networks:
+  bug_prevention_network:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+        #app339a
+        - subnet: 172.42.10.0/24

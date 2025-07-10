@@ -50,6 +50,10 @@ properties:
 
       dating_software: 
         type: string
+      
+      analysis_output:
+        type: string
+        
 
 variant_informations:
   type: object
@@ -128,6 +132,10 @@ path:
 
     excel_output:
       type: string
+    
+    homozigosity:
+      type: string
+
 
     
 

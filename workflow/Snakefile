@@ -1,14 +1,22 @@
 include: "rules/pre_proced.smk"
 
-rule all:
-    input:
-        # config["path"]["hap-ibd_hbd"]
-        config["path"]["excel_output"],     
-        config["path"]["custom_track"] ,    
-        config["path"]["global_summary"] ,    
-        config["path"]["full_results"] ,    
+if config["params"]["analysis_output"] == "founder_effect" :
+    rule all:
+        input:
+            # config["path"]["hap-ibd_hbd"]
+            config["path"]["excel_output"],     
+            config["path"]["custom_track"] ,    
+            config["path"]["global_summary"] ,    
+            config["path"]["full_results"] ,    
 
 
-include: "rules/proced.smk"
-include: "rules/dating_proced.smk"
-include: "rules/summary_results.smk"
+    include: "rules/proced_FE.smk"
+    include: "rules/dating_proced_FE.smk"
+    include: "rules/summary_results_FE.smk"
+
+elif config["params"]["analysis_output"] == "homozigosity" :
+    rule homozigosity_individual:
+        input:
+            config["path"]["homozigosity"]
+    
+    include: "rules/homozygosity_analysis.smk"

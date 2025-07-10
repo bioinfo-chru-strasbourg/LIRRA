@@ -44,6 +44,7 @@ class SelectPatients:
         self.data_work = []
         for row in data["column_1"]:
             self.data_work.append(str(row).split())
+        log.debug("prepare_file data_work", self.data_work)
 
     def find_patients(self):
         for row in self.data_work:
@@ -51,6 +52,7 @@ class SelectPatients:
                 # print(row)
                 pos1 = int(row[6])
                 pos2 = int(row[7])
+                print(row)
                 # if self.ignore_centromere == True:
                 if pos1 <= self.bp_var and pos2 >= self.bp_var:
                     self.lines.append(row)
@@ -60,6 +62,7 @@ class SelectPatients:
                         if self.roh_centromerique(row):
                             # print("hey")
                             self.lines.append(row)
+        log.debug("find_patients lines", self.lines)
         self.check_ROH_find()
 
     def check_ROH_find(self):

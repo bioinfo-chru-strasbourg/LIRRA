@@ -52,7 +52,7 @@ class MapFile:
             }
         )
 
-        map_final.write_csv(file=self.output, has_header=False, separator="\t")
+        map_final.write_csv(file=self.output, include_header=False, separator="\t")
 
 
 def main():
