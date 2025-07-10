@@ -44,6 +44,7 @@ class SelectPatients:
         self.data_work = []
         for row in data["column_1"]:
             self.data_work.append(str(row).split())
+        log.debug("prepare_file data_work", self.data_work)
 
     def find_patients(self):
         for row in self.data_work:
@@ -61,6 +62,7 @@ class SelectPatients:
                         if self.roh_centromerique(row):
                             # print("hey")
                             self.lines.append(row)
+        log.debug("find_patients lines", self.lines)
         self.check_ROH_find()
 
     def check_ROH_find(self):
